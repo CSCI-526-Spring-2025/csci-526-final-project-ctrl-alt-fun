@@ -10,7 +10,6 @@ public class PitController : MonoBehaviour
     public GameManager gameManager;
     public Material pinkMaterial;
     private Vector3 Zoffset = new Vector3(0, 0, 1);
-    private bool isOP = false;
     void Start()
     {
         // 确保坑只在 TopDown 视角下可见
@@ -25,7 +24,7 @@ public class PitController : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (isFilled) return; // 坑已经被填充，不执行任何操作
-        if (isOP) return;
+        
         // 玩家掉进坑，触发游戏结束
         if (other.CompareTag("Player"))
         {
@@ -34,10 +33,10 @@ public class PitController : MonoBehaviour
         }
 
         // 如果箱子放到坑上，则填充
-        if (other.CompareTag("Pickable"))
-        {
-            FillPit(other.gameObject);
-        }
+        //if (other.CompareTag("Pickable"))
+        //{
+        //    FillPit(other.gameObject);
+        //}
     }
 
   public  void FillPit(GameObject box)
@@ -93,7 +92,7 @@ public class PitController : MonoBehaviour
         if (isFilled && boxPrefab != null)
         {
             isFilled = false;
-            isOP = true;
+            
             // 生成新的箱子
             GameObject newBox = Instantiate(boxPrefab, transform.position - Zoffset * 0.5f, Quaternion.identity);
             Debug.Log("从坑里取出了箱子");
@@ -110,15 +109,10 @@ public class PitController : MonoBehaviour
 
 
 
-            StartCoroutine(ResetIsOP());
+            
             return newBox;
         }
         return null;
     }
-    private IEnumerator ResetIsOP()
-    {
-        yield return new WaitForSeconds(0.8f); // 等待 0.8 秒
-        isOP = false;
-        Debug.Log("isOP 已重置为 false");
-    }
+
 }
