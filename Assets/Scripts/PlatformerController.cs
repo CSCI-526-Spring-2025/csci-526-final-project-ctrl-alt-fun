@@ -28,12 +28,12 @@ public class PlatformerController : MonoBehaviour
         rb.velocity = velocity;
 
         // 只有落地状态下才允许跳跃
-        if (isGrounded && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Z)))
+        if (isGrounded && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)))
         {
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
             isGrounded = false;  // 跳跃后立即设为 false
         }
-       // Debug.Log(velocity);
+        // Debug.Log(velocity);
     }
 
     // 利用 OnCollisionStay 检测持续接触情况
