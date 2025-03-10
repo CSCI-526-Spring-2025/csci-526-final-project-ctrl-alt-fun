@@ -30,7 +30,7 @@ public class GameOverManager : MonoBehaviour
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(true);
-
+            
             if (isWin)
             {
                 gameOverText.text = "All right! You Win!";
@@ -40,6 +40,22 @@ public class GameOverManager : MonoBehaviour
             {
                 gameOverText.text = "Oh shit! You Lose!";
                 gameOverText.color = Color.red;
+            }
+
+            // End an analytics session
+            string sessionId = GameManager.Instance.sessionId;
+            string levelId = GameManager.Instance.levelId;
+            string eventType = isWin ? "Win" : "Lose";
+            // Debug.Log("Ending analytics session: " + sessionId);
+            if (AnalyticsManager.instance != null) {
+                AnalyticsManager.instance.AddAnalyticsEvent(
+                    sessionId: sessionId, 
+                    eventType: eventType, 
+                    levelId: levelId, 
+                    timestamp: System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), 
+                    eventSequence: -1,
+                    viewBeforeEvent: "N/A"
+                );
             }
         }
     }
