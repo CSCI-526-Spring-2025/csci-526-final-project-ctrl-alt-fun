@@ -368,12 +368,48 @@ PrefabInstance:
       propertyPath: m_Name
       value: BackToMainButton
       objectReference: {fileID: 0}
+    - target: {fileID: 5678281093500140823, guid: bbccf6c7e6674ff499567f8aa2ec047e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5678281093500140823, guid: bbccf6c7e6674ff499567f8aa2ec047e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5678281093500140823, guid: bbccf6c7e6674ff499567f8aa2ec047e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1148698146}
+    - target: {fileID: 5678281093500140823, guid: bbccf6c7e6674ff499567f8aa2ec047e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5678281093500140823, guid: bbccf6c7e6674ff499567f8aa2ec047e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BackToMainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 5678281093500140823, guid: bbccf6c7e6674ff499567f8aa2ec047e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 5678281093500140823, guid: bbccf6c7e6674ff499567f8aa2ec047e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7653094270121209712, guid: bbccf6c7e6674ff499567f8aa2ec047e,
         type: 3}
       propertyPath: m_fontStyle
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6203914661268128459, guid: bbccf6c7e6674ff499567f8aa2ec047e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
