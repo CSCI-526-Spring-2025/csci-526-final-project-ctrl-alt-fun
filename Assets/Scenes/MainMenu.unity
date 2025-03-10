@@ -1334,8 +1334,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc8fc9e16229f7e47a571930d69f56f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isEnabled: 0
   sendInterval: 5
-  apiUrl: https://side-n-top-default-rtdb.firebaseio.com/events/.json
+  isProduction: 0
 --- !u!4 &1831439829
 Transform:
   m_ObjectHideFlags: 0
