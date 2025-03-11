@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour
@@ -29,6 +31,11 @@ public class GameManager : MonoBehaviour
     private Vector3 targetCameraPosition;
     private Quaternion targetCameraRotation;
     public List<GameObject> portals;
+
+    public string sessionId;
+    public string levelId;
+    public int shiftCount;
+
     void Awake()
     {
         if (Instance == null)
@@ -41,11 +48,28 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject); // 如果已有实例，销毁新创建的 GameManager，防止重复
         }
     }
+
     void Start()
     {
+        // Start an analytics session
+        sessionId = Guid.NewGuid().ToString();
+        levelId = SceneManager.GetActiveScene().name;
+        shiftCount = 0;
+        // Debug.Log("New analytics session: " + sessionId);
+        if (AnalyticsManager.instance != null) {
+            AnalyticsManager.instance.AddAnalyticsEvent(
+                sessionId: sessionId, 
+                eventType: "Start", 
+                levelId: levelId, 
+                timestamp: System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), 
+                eventSequence: -1,
+                viewBeforeEvent: "N/A"
+            );
+        }
+
+
         platformerController = platformerCharacter.GetComponent<PlatformerController>();
         topDownController = topDownCharacter.GetComponent<TopDownController>();
-
 
         SwitchToPlatformerView();
     }
@@ -55,6 +79,21 @@ public class GameManager : MonoBehaviour
         // ��� Shift ���л��ӽ�
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
+            // Record a shift event for analytics
+            shiftCount += 1;
+            string viewBeforeEvent = isTopDownView ? "TopDown" : "Platformer";
+            if (AnalyticsManager.instance != null) {
+                AnalyticsManager.instance.AddAnalyticsEvent(
+                    sessionId: sessionId, 
+                    eventType: "Shift", 
+                    levelId: levelId, 
+                    timestamp: System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), 
+                    eventSequence: shiftCount,
+                    viewBeforeEvent: viewBeforeEvent
+                );
+            }
+
+
             isTopDownView = !isTopDownView;
             if (isTopDownView)
             {

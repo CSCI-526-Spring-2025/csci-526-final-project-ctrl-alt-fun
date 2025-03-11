@@ -17,9 +17,10 @@ public class GameWin : MonoBehaviour
             }
 
             // 检查是否两个玩家都在终点区域
-            if (playersInGoal.Count >= 2)
+            if (playersInGoal.Count == 2)
             {
                 Debug.Log("Both players are in the goal area! You Win!");
+                playersInGoal.Clear();
                 if (GameOverManager.instance != null)
                 {
                     GameOverManager.instance.ShowGameOver(true);
