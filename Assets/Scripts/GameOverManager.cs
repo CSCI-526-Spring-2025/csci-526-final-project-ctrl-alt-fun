@@ -34,6 +34,7 @@ public class GameOverManager : MonoBehaviour
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(true);
+            GameWin.playersInGoal.Clear();
             
             if (isWin)
             {

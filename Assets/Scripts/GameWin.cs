@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class GameWin : MonoBehaviour
 {
     // 用于记录当前在终点区域内的玩家
-    private static HashSet<GameObject> playersInGoal = new HashSet<GameObject>();
+    public static HashSet<GameObject> playersInGoal = new HashSet<GameObject>();
 
     private void OnTriggerEnter(Collider other)
     {
@@ -20,7 +20,7 @@ public class GameWin : MonoBehaviour
             if (playersInGoal.Count == 2)
             {
                 Debug.Log("Both players are in the goal area! You Win!");
-                playersInGoal.Clear();
+                //playersInGoal.Clear();
                 if (GameOverManager.instance != null)
                 {
                     GameOverManager.instance.ShowGameOver(true);
