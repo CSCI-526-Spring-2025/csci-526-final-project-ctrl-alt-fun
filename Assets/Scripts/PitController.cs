@@ -3,17 +3,17 @@ using System.Collections;
 
 public class PitController : MonoBehaviour
 {
-    public bool isFilled = false;  // ÊÇ·ñ±»Ìî³ä
-    public Material defaultMaterial; // ¿ÓµÄÔ­Ê¼²ÄÖÊ
+    public bool isFilled = false;  // ï¿½Ç·ï¿½ï¿½ï¿½ï¿½
+    public Material defaultMaterial; // ï¿½Óµï¿½Ô­Ê¼ï¿½ï¿½ï¿½ï¿½
     public GameObject boxPrefab; 
-    private GameObject filledBox = null; // ¼ÇÂ¼Ìî³äµÄÏä×Ó
+    private GameObject filledBox = null; // ï¿½ï¿½Â¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public GameManager gameManager;
     public Material pinkMaterial;
     private Vector3 Zoffset = new Vector3(0, 0, 1);
     private bool isOP = false;
     void Start()
     {
-        // È·±£¿ÓÖ»ÔÚ TopDown ÊÓ½ÇÏÂ¿É¼û
+        // È·ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ TopDown ï¿½Ó½ï¿½ï¿½Â¿É¼ï¿½
         //gameObject.SetActive(gameManager.isTopDownView);
     }
 
@@ -24,52 +24,52 @@ public class PitController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (isFilled) return; // ¿ÓÒÑ¾­±»Ìî³ä£¬²»Ö´ÐÐÈÎºÎ²Ù×÷
+        if (isFilled) return; // ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ä£¬ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ÎºÎ²ï¿½ï¿½ï¿½
         if (isOP) return;
-        // Íæ¼Òµô½ø¿Ó£¬´¥·¢ÓÎÏ·½áÊø
+        // ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½
         if (other.CompareTag("Player"))
         {
-            Debug.Log("Íæ¼ÒµôÈë¿Ó£¡ÓÎÏ·½áÊø");
+            Debug.Log("ï¿½ï¿½Òµï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½");
             GameOverManager.instance.ShowGameOver(false);
         }
 
-        // Èç¹ûÏä×Ó·Åµ½¿ÓÉÏ£¬ÔòÌî³ä
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó·Åµï¿½ï¿½ï¿½ï¿½Ï£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (other.CompareTag("Pickable"))
         {
             FillPit(other.gameObject);
         }
     }
 
-  public  void FillPit(GameObject box)
+  public void FillPit(GameObject box)
     {
         isFilled = true;
         filledBox = box;
 
-        // ÈÃÏä×ÓµÄÎ»ÖÃ¶ÔÆëµ½¿Ó
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½Î»ï¿½Ã¶ï¿½ï¿½ëµ½ï¿½ï¿½
         box.transform.position = transform.position+Zoffset;
-        box.GetComponent<BoxController>().enabled = false; // ½ûÓÃÏä×Ó½Å±¾£¬·ÀÖ¹±»ÔÙ´ÎÊ°È¡
+        box.GetComponent<BoxController>().enabled = false; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó½Å±ï¿½ï¿½ï¿½ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½Ù´ï¿½Ê°È¡
         
-        Debug.Log("¿Ó±»Ìî³ä");
+        Debug.Log("ï¿½Ó±ï¿½ï¿½ï¿½ï¿½");
 
-        // ²¥·ÅÌî¿Ó¶¯»­
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¶ï¿½ï¿½ï¿½
         StartCoroutine(SmoothFillPit(box));
         
-        // ÈÃ¿Ó±ä³ÉÆÕÍ¨µØÃæ
+        // ï¿½Ã¿Ó±ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½
         Renderer pitRenderer = GetComponent<Renderer>();
         if (pitRenderer != null && pinkMaterial != null)
         {
             pitRenderer.material = pinkMaterial;
         }
-        gameObject.layer = LayerMask.NameToLayer("pitWithBox"); // ÈÃ¿Ó±ä³ÉÆÕÍ¨µØÃæ
-        GetComponent<BoxCollider>().isTrigger = false; // ÈÃÅö×²»Ö¸´ÎªÊµÌå
+        gameObject.layer = LayerMask.NameToLayer("pitWithBox"); // ï¿½Ã¿Ó±ï¿½ï¿½ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½
+        GetComponent<BoxCollider>().isTrigger = false; // ï¿½ï¿½ï¿½ï¿½×²ï¿½Ö¸ï¿½ÎªÊµï¿½ï¿½
     }
 
     IEnumerator SmoothFillPit(GameObject box)
     {
         Vector3 startScale = box.transform.localScale;
-        Vector3 endScale = new Vector3(1, 0.1f, 1); // ÈÃÏä×Ó±ä±â£¬Ìî³ä¿Ó
+        Vector3 endScale = new Vector3(1, 0.1f, 1); // ï¿½ï¿½ï¿½ï¿½ï¿½Ó±ï¿½â£¬ï¿½ï¿½ï¿½ï¿½
         Vector3 startPosition = box.transform.position;
-        Vector3 endPosition = startPosition + new Vector3(0, -0.4f, 0); // ÈÃÏä×ÓÉÔÎ¢³ÁÈë¿ÓÀï
+        Vector3 endPosition = startPosition + new Vector3(0, -0.4f, 0); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         float duration = 0.5f;
         float elapsedTime = 0;
 
@@ -81,11 +81,11 @@ public class PitController : MonoBehaviour
             yield return null;
         }
 
-        // È·±£×îÖÕ×´Ì¬ÕýÈ·
+        // È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½È·
         box.transform.localScale = endScale;
         box.transform.position = endPosition;
 
-        // **¶¯»­½áÊøºóÏú»ÙÏä×Ó**
+        // **ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½**
         Destroy(box);
     }
     public GameObject ExtractBox()
@@ -94,19 +94,19 @@ public class PitController : MonoBehaviour
         {
             isFilled = false;
             isOP = true;
-            // Éú³ÉÐÂµÄÏä×Ó
+            // ï¿½ï¿½ï¿½ï¿½ï¿½Âµï¿½ï¿½ï¿½ï¿½ï¿½
             GameObject newBox = Instantiate(boxPrefab, transform.position - Zoffset * 0.5f, Quaternion.identity);
-            Debug.Log("´Ó¿ÓÀïÈ¡³öÁËÏä×Ó");
+            Debug.Log("ï¿½Ó¿ï¿½ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 
-            // »¹Ô­¿ÓµÄ×´Ì¬
+            // ï¿½ï¿½Ô­ï¿½Óµï¿½×´Ì¬
             Renderer pitRenderer = GetComponent<Renderer>();
             if (pitRenderer != null && defaultMaterial != null)
             {
-                pitRenderer.material = defaultMaterial; // »Ö¸´Ô­Ê¼²ÄÖÊ
+                pitRenderer.material = defaultMaterial; // ï¿½Ö¸ï¿½Ô­Ê¼ï¿½ï¿½ï¿½ï¿½
             }
 
-            gameObject.layer = LayerMask.NameToLayer("Pit"); // ÈÃ¿Ó»Øµ½ÆÕÍ¨×´Ì¬
-            GetComponent<BoxCollider>().isTrigger = true; // ÈÃ¿Ó»Ö¸´ÎªÏÝÚå
+            gameObject.layer = LayerMask.NameToLayer("Pit"); // ï¿½Ã¿Ó»Øµï¿½ï¿½ï¿½Í¨×´Ì¬
+            GetComponent<BoxCollider>().isTrigger = true; // ï¿½Ã¿Ó»Ö¸ï¿½Îªï¿½ï¿½ï¿½ï¿½
 
 
 
@@ -117,8 +117,8 @@ public class PitController : MonoBehaviour
     }
     private IEnumerator ResetIsOP()
     {
-        yield return new WaitForSeconds(0.8f); // µÈ´ý 0.8 Ãë
+        yield return new WaitForSeconds(0.8f); // ï¿½È´ï¿½ 0.8 ï¿½ï¿½
         isOP = false;
-        Debug.Log("isOP ÒÑÖØÖÃÎª false");
+        Debug.Log("isOP ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª false");
     }
 }
