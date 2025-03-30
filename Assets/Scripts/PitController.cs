@@ -24,19 +24,25 @@ public class PitController : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (isFilled) return; // ���Ѿ�����䣬��ִ���κβ���
-        
+        if (isOP) return;
         // ��ҵ����ӣ�������Ϸ����
         if (other.CompareTag("Player"))
         {
+            // End an analytics session
+            Vector3 position = other.transform.position;
+            string reason = "Pit";
+            if (AnalyticsManager.instance != null) {
+                AnalyticsManager.instance.AddLossEvent(reason, position);
+            }
             Debug.Log("��ҵ���ӣ���Ϸ����");
             GameOverManager.instance.ShowGameOver(false);
         }
 
         // ������ӷŵ����ϣ������
-        //if (other.CompareTag("Pickable"))
-        //{
-        //    FillPit(other.gameObject);
-        //}
+        if (other.CompareTag("Pickable"))
+        {
+            FillPit(other.gameObject);
+        }
     }
 
   public void FillPit(GameObject box)
@@ -92,7 +98,7 @@ public class PitController : MonoBehaviour
         if (isFilled && boxPrefab != null)
         {
             isFilled = false;
-            
+            isOP = true;
             // �����µ�����
             GameObject newBox = Instantiate(boxPrefab, transform.position - Zoffset * 0.5f, Quaternion.identity);
             Debug.Log("�ӿ���ȡ��������");
@@ -113,5 +119,12 @@ public class PitController : MonoBehaviour
             return newBox;
         }
         return null;
+    }
+
+    private IEnumerator ResetIsOP()
+    {
+        yield return new WaitForSeconds(0.8f); // �ȴ� 0.8 ��
+        isOP = false;
+        Debug.Log("isOP ������Ϊ false");
     }
 }
