@@ -20,6 +20,23 @@ public class GameWin : MonoBehaviour
             if (playersInGoal.Count >= 2)
             {
                 Debug.Log("Both players are in the goal area! You Win!");
+
+                Vector3 position = other.transform.position;
+                string sessionId = GameManager.Instance.sessionId;
+                string levelId = GameManager.Instance.levelId;
+                if (AnalyticsManager.instance != null) {
+                    AnalyticsManager.instance.AddAnalyticsEvent(
+                        sessionId: sessionId, 
+                        eventType: "Win", 
+                        levelId: levelId, 
+                        timestamp: System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), 
+                        eventSequence: -1,
+                        viewBeforeEvent: "N/A",
+                        reason: "N/A",
+                        position: position
+                    );
+                }
+
                 if (GameOverManager.instance != null)
                 {
                     GameOverManager.instance.ShowGameOver(true);
