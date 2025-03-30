@@ -47,8 +47,10 @@ public class GameOverManager : MonoBehaviour
             {
                 gameOverText.text = "You Lose!";
                 gameOverText.color = Color.red;
+                // Time.timeScale = 0f;
                 if (nextLevelButton != null) nextLevelButton.SetActive(false);
                 if (replayButton != null) replayButton.SetActive(true);
+                
             }
 
             // End an analytics session

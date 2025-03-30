@@ -4,13 +4,19 @@ using System.Collections;
 public class PlatformerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
+    // 你可以调低 jumpForce 的值来降低基础跳跃高度
     public float jumpForce = 7f;
+    // 下落时额外加速的倍率（值越大下落越快）
+    public float fallMultiplier = 2.5f;
+    // 当玩家未持续按住跳跃键时，额外施加的上升阶段的加速度倍率
+    public float lowJumpMultiplier = 2f;
+
     private Rigidbody rb;
     private bool isGrounded = false;
 
     // 记录上一次检测到接触地面的时间
     private float lastCollisionTime = 0f;
-    // 延迟时间（秒），可以根据实际情况调整
+    // 离开地面后延迟检测的时间
     public float groundDelay = 0.2f;
 
     void Start()
@@ -20,29 +26,38 @@ public class PlatformerController : MonoBehaviour
 
     void Update()
     {
-        // 仅允许在 X 轴移动，保持 Z 轴为固定值
+        // 仅允许在 X 轴上移动
         float h = Input.GetAxis("Horizontal");
         Vector3 velocity = rb.velocity;
         velocity.x = h * moveSpeed;
-        //velocity.z = 0.5f;  // 限制 Z 轴位移
         rb.velocity = velocity;
 
-        // 只有落地状态下才允许跳跃
+        // 落地状态下允许跳跃
         if (isGrounded && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)))
         {
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
-            isGrounded = false;  // 跳跃后立即设为 false
+            isGrounded = false;  // 跳跃后立即置为 false
         }
-        // Debug.Log(velocity);
+
+        // 当玩家下落时，增加额外的重力让下落更快
+        if (rb.velocity.y < 0)
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        }
+        // 如果玩家正在上升，但松开了跳跃键，则额外加速下降（让跳跃更低）
+        else if (rb.velocity.y > 0 && !(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)))
+        {
+            rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+        }
     }
 
-    // 利用 OnCollisionStay 检测持续接触情况
+    // 利用 OnCollisionStay 检测与地面的持续接触
     void OnCollisionStay(Collision collision)
     {
         bool grounded = false;
         foreach (ContactPoint contact in collision.contacts)
         {
-            // 使用局部上方向检测
+            // 判断接触面的法向量与角色上方向的夹角
             if (Vector3.Dot(contact.normal, transform.up) > 0.5f)
             {
                 grounded = true;
@@ -65,7 +80,6 @@ public class PlatformerController : MonoBehaviour
     private IEnumerator DelayedGroundCheck()
     {
         yield return new WaitForSeconds(groundDelay);
-        // 如果在延迟期间没有更新 lastCollisionTime，则认为已经脱离地面
         if (Time.time - lastCollisionTime >= groundDelay)
         {
             isGrounded = false;
