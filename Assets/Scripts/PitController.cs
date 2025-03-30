@@ -10,6 +10,7 @@ public class PitController : MonoBehaviour
     public GameManager gameManager;
     public Material pinkMaterial;
     private Vector3 Zoffset = new Vector3(0, 0, 1);
+    private bool isOP = false;
     void Start()
     {
         // ȷ����ֻ�� TopDown �ӽ��¿ɼ�
@@ -45,7 +46,7 @@ public class PitController : MonoBehaviour
         }
     }
 
-  public void FillPit(GameObject box)
+  public  void FillPit(GameObject box)
     {
         isFilled = true;
         filledBox = box;
@@ -115,12 +116,11 @@ public class PitController : MonoBehaviour
 
 
 
-            
+            StartCoroutine(ResetIsOP());
             return newBox;
         }
         return null;
     }
-
     private IEnumerator ResetIsOP()
     {
         yield return new WaitForSeconds(0.8f); // �ȴ� 0.8 ��
