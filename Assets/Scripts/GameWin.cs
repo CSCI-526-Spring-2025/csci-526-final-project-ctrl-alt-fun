@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class GameWin : MonoBehaviour
 {
     // 用于记录当前在终点区域内的玩家
-    public HashSet<GameObject> playersInGoal = new HashSet<GameObject>();
+    public static HashSet<GameObject> playersInGoal = new HashSet<GameObject>();
 
     private void OnTriggerEnter(Collider other)
     {

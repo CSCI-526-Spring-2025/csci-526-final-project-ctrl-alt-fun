@@ -57,6 +57,8 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         pauseMenuUI.SetActive(false);
+        // Clear the playersInGoal Hash Set when replay the game
+        GameWin.playersInGoal.Clear();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
