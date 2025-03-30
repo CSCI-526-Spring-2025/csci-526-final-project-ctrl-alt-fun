@@ -14,6 +14,8 @@ public class AnalyticsEvent {
     public string levelId;
     public int eventSequence;
     public string viewBeforeEvent;
+    public string reason;
+    public Vector3 position;
 }
 
 [System.Serializable]
@@ -27,7 +29,7 @@ public class AnalyticsManager : MonoBehaviour {
     private List<AnalyticsEvent> eventsCache = new List<AnalyticsEvent>();
     private string playerId;
 
-    public bool isEnabled = false;
+    public bool isEnabled = true;
 
     // Sending interval in seconds
     public float sendInterval = 5f;
@@ -67,7 +69,8 @@ public class AnalyticsManager : MonoBehaviour {
     }
 
     // For external: add an event into cache
-    public void AddAnalyticsEvent(string sessionId, string eventType, string levelId, long timestamp, int eventSequence, string viewBeforeEvent) {
+    public void AddAnalyticsEvent(string sessionId, string eventType, string levelId, long timestamp, 
+    int eventSequence, string viewBeforeEvent, string reason, Vector3 position) {
         AnalyticsEvent newEvent = new AnalyticsEvent() {
             sessionId = sessionId,
             playerId = playerId,
@@ -75,11 +78,31 @@ public class AnalyticsManager : MonoBehaviour {
             levelId = levelId,
             timestamp = timestamp,
             eventSequence = eventSequence,
-            viewBeforeEvent = viewBeforeEvent
+            viewBeforeEvent = viewBeforeEvent,
+            reason = reason,
+            position = position
         };
 
         // Debug.Log("New event:" + newEvent);
         eventsCache.Add(newEvent);
+    }
+
+    // For external: add a defeat event into cache
+    public void AddLossEvent(string reason, Vector3 position) {
+        string sessionId = GameManager.Instance.sessionId;
+        string levelId = GameManager.Instance.levelId;
+        string eventType = "Lose";
+        // Debug.Log("Ending analytics session: " + sessionId);
+        AddAnalyticsEvent(
+            sessionId: sessionId, 
+            eventType: eventType, 
+            levelId: levelId, 
+            timestamp: System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), 
+            eventSequence: -1,
+            viewBeforeEvent: "N/A",
+            reason: reason,
+            position: position
+        );
     }
 
     // Check cache and send data after sendInterval seconds
