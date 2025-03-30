@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this; // 如果没有实例，设置当前实例
-            
         }
         else
         {
@@ -79,6 +78,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (GameOverManager.instance != null && GameOverManager.instance.isGamePaused) return;
         // ��� Shift ���л��ӽ�
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
@@ -169,7 +169,9 @@ public class GameManager : MonoBehaviour
         SetCharacterTransparency(platformerCharacter, 1f);
 
         // ���Ŀ��λ�úͽǶ�
-        targetCameraPosition = platformerCharacter.transform.position + platformerPosition;
+        // targetCameraPosition = platformerCharacter.transform.position + platformerPosition;
+        targetCameraPosition = platformerPosition;
+        // Debug.Log("targetCameraPosition set to: " + targetCameraPosition);
 
         targetCameraRotation = Quaternion.Euler(platformerRotation);
 

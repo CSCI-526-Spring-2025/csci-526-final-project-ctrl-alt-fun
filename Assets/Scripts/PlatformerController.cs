@@ -26,6 +26,7 @@ public class PlatformerController : MonoBehaviour
 
     void Update()
     {
+        if (GameOverManager.instance != null && GameOverManager.instance.isGamePaused) return;
         // 仅允许在 X 轴上移动
         float h = Input.GetAxis("Horizontal");
         Vector3 velocity = rb.velocity;

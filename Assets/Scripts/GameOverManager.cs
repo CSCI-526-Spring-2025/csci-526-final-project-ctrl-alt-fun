@@ -11,6 +11,8 @@ public class GameOverManager : MonoBehaviour
     public GameObject nextLevelButton;
     public GameObject replayButton;
 
+    public bool isGamePaused = false;
+
     void Awake()
     {
         if (instance == null)
@@ -52,12 +54,13 @@ public class GameOverManager : MonoBehaviour
                 if (replayButton != null) replayButton.SetActive(true);
                 
             }
-
+            isGamePaused = true;
         }
     }
 
     public void ReplayLevel()
     {
+        isGamePaused = false;
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(false);
@@ -68,6 +71,7 @@ public class GameOverManager : MonoBehaviour
 
     public void BackToMainMenu()
     {
+        isGamePaused = false;
         Time.timeScale = 1f;
         if (gameOverPanel != null)
         {
@@ -79,6 +83,7 @@ public class GameOverManager : MonoBehaviour
 
     public void NextLevel()
     {
+        isGamePaused = false;
         Time.timeScale = 1f;
         if (gameOverPanel != null)
         {

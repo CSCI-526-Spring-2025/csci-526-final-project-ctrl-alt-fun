@@ -32,6 +32,8 @@ public class TopDownController : MonoBehaviour
 
         void Update()
         {
+            if (GameOverManager.instance != null && GameOverManager.instance.isGamePaused) return;
+            
             HandleInput();
             DrawFaceDirection();
         }
