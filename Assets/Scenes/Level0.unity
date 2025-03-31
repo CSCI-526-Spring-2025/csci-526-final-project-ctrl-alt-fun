@@ -1405,6 +1405,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 5
   jumpForce: 7
+  fallMultiplier: 2.5
+  lowJumpMultiplier: 2
   groundDelay: 0.2
 --- !u!54 &594473975
 Rigidbody:
@@ -4448,7 +4450,7 @@ MonoBehaviour:
   directionalLight: {fileID: 1244871669}
   topDownPosition: {x: 0, y: -10, z: -10}
   topDownRotation: {x: -45, y: 0, z: 0}
-  platformerPosition: {x: -5, y: 2, z: -10}
+  platformerPosition: {x: 0, y: 0, z: -30}
   platformerRotation: {x: 0, y: 0, z: 0}
   cameraTransitionSpeed: 5
   portals:

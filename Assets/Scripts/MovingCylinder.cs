@@ -33,6 +33,12 @@ public class MovingCylinder : MonoBehaviour
     {
         if (other.CompareTag(targetTag))
         {
+            // End an analytics session
+            Vector3 position = other.transform.position;
+            string reason = "MovingCylinder";
+            if (AnalyticsManager.instance != null) {
+                AnalyticsManager.instance.AddLossEvent(reason, position);
+            }
             EndGame();
         }
     }

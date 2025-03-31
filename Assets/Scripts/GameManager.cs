@@ -41,7 +41,6 @@ public class GameManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this; // 如果没有实例，设置当前实例
-            
         }
         else
         {
@@ -56,6 +55,7 @@ public class GameManager : MonoBehaviour
         levelId = SceneManager.GetActiveScene().name;
         shiftCount = 0;
         // Debug.Log("New analytics session: " + sessionId);
+        Vector3 position = isTopDownView ? topDownCharacter.transform.position : platformerCharacter.transform.position;
         if (AnalyticsManager.instance != null) {
             AnalyticsManager.instance.AddAnalyticsEvent(
                 sessionId: sessionId, 
@@ -63,7 +63,9 @@ public class GameManager : MonoBehaviour
                 levelId: levelId, 
                 timestamp: System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), 
                 eventSequence: -1,
-                viewBeforeEvent: "N/A"
+                viewBeforeEvent: "N/A",
+                reason: "N/A",
+                position: position
             );
         }
 
@@ -76,11 +78,13 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        if (GameOverManager.instance != null && GameOverManager.instance.isGamePaused) return;
         // ��� Shift ���л��ӽ�
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
             // Record a shift event for analytics
             shiftCount += 1;
+            Vector3 position = isTopDownView ? topDownCharacter.transform.position : platformerCharacter.transform.position;
             string viewBeforeEvent = isTopDownView ? "TopDown" : "Platformer";
             if (AnalyticsManager.instance != null) {
                 AnalyticsManager.instance.AddAnalyticsEvent(
@@ -89,10 +93,11 @@ public class GameManager : MonoBehaviour
                     levelId: levelId, 
                     timestamp: System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), 
                     eventSequence: shiftCount,
-                    viewBeforeEvent: viewBeforeEvent
+                    viewBeforeEvent: viewBeforeEvent,
+                    reason: "N/A",
+                    position: position
                 );
             }
-
 
             isTopDownView = !isTopDownView;
             if (isTopDownView)
@@ -164,7 +169,9 @@ public class GameManager : MonoBehaviour
         SetCharacterTransparency(platformerCharacter, 1f);
 
         // ���Ŀ��λ�úͽǶ�
-        targetCameraPosition = platformerCharacter.transform.position + platformerPosition;
+        // targetCameraPosition = platformerCharacter.transform.position + platformerPosition;
+        targetCameraPosition = platformerPosition;
+        // Debug.Log("targetCameraPosition set to: " + targetCameraPosition);
 
         targetCameraRotation = Quaternion.Euler(platformerRotation);
 

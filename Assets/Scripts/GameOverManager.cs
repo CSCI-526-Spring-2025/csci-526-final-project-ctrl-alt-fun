@@ -11,6 +11,8 @@ public class GameOverManager : MonoBehaviour
     public GameObject nextLevelButton;
     public GameObject replayButton;
 
+    public bool isGamePaused = false;
+
     void Awake()
     {
         if (instance == null)
@@ -47,30 +49,18 @@ public class GameOverManager : MonoBehaviour
             {
                 gameOverText.text = "You Lose!";
                 gameOverText.color = Color.red;
+                // Time.timeScale = 0f;
                 if (nextLevelButton != null) nextLevelButton.SetActive(false);
                 if (replayButton != null) replayButton.SetActive(true);
+                
             }
-
-            // End an analytics session
-            string sessionId = GameManager.Instance.sessionId;
-            string levelId = GameManager.Instance.levelId;
-            string eventType = isWin ? "Win" : "Lose";
-            // Debug.Log("Ending analytics session: " + sessionId);
-            if (AnalyticsManager.instance != null) {
-                AnalyticsManager.instance.AddAnalyticsEvent(
-                    sessionId: sessionId, 
-                    eventType: eventType, 
-                    levelId: levelId, 
-                    timestamp: System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), 
-                    eventSequence: -1,
-                    viewBeforeEvent: "N/A"
-                );
-            }
+            isGamePaused = true;
         }
     }
 
     public void ReplayLevel()
     {
+        isGamePaused = false;
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(false);
@@ -81,6 +71,7 @@ public class GameOverManager : MonoBehaviour
 
     public void BackToMainMenu()
     {
+        isGamePaused = false;
         Time.timeScale = 1f;
         if (gameOverPanel != null)
         {
@@ -92,6 +83,7 @@ public class GameOverManager : MonoBehaviour
 
     public void NextLevel()
     {
+        isGamePaused = false;
         Time.timeScale = 1f;
         if (gameOverPanel != null)
         {
