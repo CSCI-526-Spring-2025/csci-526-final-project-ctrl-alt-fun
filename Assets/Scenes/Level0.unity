@@ -4450,7 +4450,7 @@ MonoBehaviour:
   directionalLight: {fileID: 1244871669}
   topDownPosition: {x: 0, y: -10, z: -10}
   topDownRotation: {x: -45, y: 0, z: 0}
-  platformerPosition: {x: 0, y: 0, z: -30}
+  platformerPosition: {x: 10, y: 0, z: -30}
   platformerRotation: {x: 0, y: 0, z: 0}
   cameraTransitionSpeed: 5
   portals:

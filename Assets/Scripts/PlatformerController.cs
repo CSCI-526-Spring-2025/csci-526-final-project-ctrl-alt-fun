@@ -5,11 +5,11 @@ public class PlatformerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
     // 你可以调低 jumpForce 的值来降低基础跳跃高度
-    public float jumpForce = 7f;
+    public float jumpForce = 15f;
     // 下落时额外加速的倍率（值越大下落越快）
-    public float fallMultiplier = 2.5f;
+    public float fallMultiplier = 1f;
     // 当玩家未持续按住跳跃键时，额外施加的上升阶段的加速度倍率
-    public float lowJumpMultiplier = 2f;
+    public float lowJumpMultiplier = 1.5f;
 
     private Rigidbody rb;
     private bool isGrounded = false;
