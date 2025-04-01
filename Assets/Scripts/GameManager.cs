@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class GameManager : MonoBehaviour
@@ -29,32 +31,74 @@ public class GameManager : MonoBehaviour
     private Vector3 targetCameraPosition;
     private Quaternion targetCameraRotation;
     public List<GameObject> portals;
+
+    public string sessionId;
+    public string levelId;
+    public int shiftCount;
+
     void Awake()
     {
         if (Instance == null)
         {
             Instance = this; // 如果没有实例，设置当前实例
-            
         }
         else
         {
             Destroy(gameObject); // 如果已有实例，销毁新创建的 GameManager，防止重复
         }
     }
+
     void Start()
     {
+        // Start an analytics session
+        sessionId = Guid.NewGuid().ToString();
+        levelId = SceneManager.GetActiveScene().name;
+        shiftCount = 0;
+        // Debug.Log("New analytics session: " + sessionId);
+        Vector3 position = isTopDownView ? topDownCharacter.transform.position : platformerCharacter.transform.position;
+        if (AnalyticsManager.instance != null) {
+            AnalyticsManager.instance.AddAnalyticsEvent(
+                sessionId: sessionId, 
+                eventType: "Start", 
+                levelId: levelId, 
+                timestamp: System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), 
+                eventSequence: -1,
+                viewBeforeEvent: "N/A",
+                reason: "N/A",
+                position: position
+            );
+        }
+
+
         platformerController = platformerCharacter.GetComponent<PlatformerController>();
         topDownController = topDownCharacter.GetComponent<TopDownController>();
-
 
         SwitchToPlatformerView();
     }
 
     void Update()
     {
+        if (GameOverManager.instance != null && GameOverManager.instance.isGamePaused) return;
         // ��� Shift ���л��ӽ�
         if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
+            // Record a shift event for analytics
+            shiftCount += 1;
+            Vector3 position = isTopDownView ? topDownCharacter.transform.position : platformerCharacter.transform.position;
+            string viewBeforeEvent = isTopDownView ? "TopDown" : "Platformer";
+            if (AnalyticsManager.instance != null) {
+                AnalyticsManager.instance.AddAnalyticsEvent(
+                    sessionId: sessionId, 
+                    eventType: "Shift", 
+                    levelId: levelId, 
+                    timestamp: System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), 
+                    eventSequence: shiftCount,
+                    viewBeforeEvent: viewBeforeEvent,
+                    reason: "N/A",
+                    position: position
+                );
+            }
+
             isTopDownView = !isTopDownView;
             if (isTopDownView)
             {
@@ -125,7 +169,9 @@ public class GameManager : MonoBehaviour
         SetCharacterTransparency(platformerCharacter, 1f);
 
         // ���Ŀ��λ�úͽǶ�
-        targetCameraPosition = platformerCharacter.transform.position + platformerPosition;
+        // targetCameraPosition = platformerCharacter.transform.position + platformerPosition;
+        targetCameraPosition = platformerPosition;
+        // Debug.Log("targetCameraPosition set to: " + targetCameraPosition);
 
         targetCameraRotation = Quaternion.Euler(platformerRotation);
 

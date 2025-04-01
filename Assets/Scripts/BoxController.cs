@@ -6,7 +6,7 @@ public class BoxController : MonoBehaviour
 {
    
 
-    // µ±Ç°ÊÇ·ñÎª TopDown Ä£Ê½
+    // ï¿½ï¿½Ç°ï¿½Ç·ï¿½Îª TopDown Ä£Ê½
     private Rigidbody rb;
     private Collider boxCollider;
     private bool isPickedUp = false;
@@ -29,49 +29,50 @@ public class BoxController : MonoBehaviour
 
     void Update()
     {
-        // ¸ù¾ÝÄ£Ê½ÇÐ»»×´Ì¬
+        if (GameOverManager.instance != null && GameOverManager.instance.isGamePaused) return;
+        // ï¿½ï¿½ï¿½ï¿½Ä£Ê½ï¿½Ð»ï¿½×´Ì¬
         UpdateBoxState();
 
-        // Èç¹û±»Ê°È¡£¬±£³ÖÓë½ÇÉ«Î»ÖÃÖØºÏ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ê°È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«Î»ï¿½ï¿½ï¿½Øºï¿½
         if (isPickedUp && playerTransform != null)
         {
-            // Ö±½ÓÊ¹ÓÃÊÀ½ç×ø±ê£¬Ê¹Ïä×ÓºÍ½ÇÉ«ÖØºÏ
+            // Ö±ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ê£¬Ê¹ï¿½ï¿½ï¿½ÓºÍ½ï¿½É«ï¿½Øºï¿½
             transform.position = playerTransform.position - Zoffset;
         }
     }
 
-    // ¸üÐÂÏä×ÓµÄ×´Ì¬
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Óµï¿½×´Ì¬
     void UpdateBoxState()
     {
         if (GameManager.Instance.isTopDownView)
         {
             rb.isKinematic = true;
             rb.useGravity = false;
-            boxCollider.isTrigger = isPickedUp; // ±»Ê°È¡ºóºöÂÔÅö×²
+            boxCollider.isTrigger = isPickedUp; // ï¿½ï¿½Ê°È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²
         }
         else
         {
             rb.isKinematic = true;
             rb.constraints = RigidbodyConstraints.FreezeRotation;
-            boxCollider.isTrigger = false; // Platform Ä£Ê½ÏÂ»Ö¸´Åö×²
+            boxCollider.isTrigger = false; // Platform Ä£Ê½ï¿½Â»Ö¸ï¿½ï¿½ï¿½×²
             rb.useGravity = false;
             ReleaseBox();
         }
     }
 
-    // Ê°È¡Ïä×Ó
+    // Ê°È¡ï¿½ï¿½ï¿½ï¿½
     public void PickUpBox(Transform player)
     {
         if (GameManager.Instance.isTopDownView)
         {
             isPickedUp = true;
             playerTransform = player;
-            transform.position = player.position; // Á¢¼´¸üÐÂÎ»ÖÃ
-            boxCollider.isTrigger = true; // ºöÂÔÅö×²
+            transform.position = player.position; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+            boxCollider.isTrigger = true; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²
         }
     }
 
-    // ·ÅÖÃÏä×Ó
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public void PlaceBox(Vector3 placePosition)
     {
         if (GameManager.Instance.isTopDownView && isPickedUp)
@@ -79,11 +80,11 @@ public class BoxController : MonoBehaviour
             isPickedUp = false;
             playerTransform = null;
             transform.position = placePosition;
-            boxCollider.isTrigger = false; // »Ö¸´Åö×²
+            boxCollider.isTrigger = false; // ï¿½Ö¸ï¿½ï¿½ï¿½×²
         }
     }
 
-    // ÊÍ·ÅÏä×Ó£¨ÇÐ»»µ½ Platform Ä£Ê½Ê±µ÷ÓÃ£©
+    // ï¿½Í·ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ Platform Ä£Ê½Ê±ï¿½ï¿½ï¿½Ã£ï¿½
     public void ReleaseBox()
     {
         if (isPickedUp)
@@ -92,10 +93,10 @@ public class BoxController : MonoBehaviour
             playerTransform = null;
             Vector3[] directions = new Vector3[]
             {
-            Vector3.right,  // ÓÒ
-            Vector3.left,   // ×ó
-            Vector3.up,     // ÉÏ
-            Vector3.down    // ÏÂ
+            Vector3.right,  // ï¿½ï¿½
+            Vector3.left,   // ï¿½ï¿½
+            Vector3.up,     // ï¿½ï¿½
+            Vector3.down    // ï¿½ï¿½
             };
 
             foreach (Vector3 dir in directions)
@@ -103,18 +104,18 @@ public class BoxController : MonoBehaviour
                 Vector3 potentialPosition = transform.position + dir + Zoffset;
                 Collider[] hitColliders = Physics.OverlapBox(potentialPosition, Vector3.one * 0.4f, Quaternion.identity);
 
-                // Èç¹û¸ÃÎ»ÖÃÃ»ÓÐÆäËûÎïÌå£¬Ôò·ÅÖÃÏä×Ó
+                // ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½å£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                 if (hitColliders.Length == 0)
                 {
                     transform.position = potentialPosition;
                     boxCollider.isTrigger = false;
-                    Debug.Log("Ïä×Ó·ÅÖÃÔÚ: " + potentialPosition);
-                    return; // ·ÅÖÃ³É¹¦£¬ÍË³öº¯Êý
+                    Debug.Log("ï¿½ï¿½ï¿½Ó·ï¿½ï¿½ï¿½ï¿½ï¿½: " + potentialPosition);
+                    return; // ï¿½ï¿½ï¿½Ã³É¹ï¿½ï¿½ï¿½ï¿½Ë³ï¿½ï¿½ï¿½ï¿½ï¿½
                 }
             }
 
-            // Èç¹ûËÄ¸ö·½Ïò¶¼±»Õ¼ÓÃ£¬Ïä×Ó±£³ÖÔ­µØ
-            Debug.Log("ÎÞ·¨·ÅÖÃÏä×Ó£¬ËùÓÐ·½Ïò¶¼±»Õ¼¾Ý£¡");
+            // ï¿½ï¿½ï¿½ï¿½Ä¸ï¿½ï¿½ï¿½ï¿½ò¶¼±ï¿½Õ¼ï¿½Ã£ï¿½ï¿½ï¿½ï¿½Ó±ï¿½ï¿½ï¿½Ô­ï¿½ï¿½
+            Debug.Log("ï¿½Þ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó£ï¿½ï¿½ï¿½ï¿½Ð·ï¿½ï¿½ò¶¼±ï¿½Õ¼ï¿½Ý£ï¿½");
             
             boxCollider.isTrigger = false;
         }
