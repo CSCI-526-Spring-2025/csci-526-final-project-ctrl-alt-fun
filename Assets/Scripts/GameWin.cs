@@ -21,16 +21,18 @@ public class GameWin : MonoBehaviour
             {
                 Debug.Log("Both players are in the goal area! You Win!");
                 //playersInGoal.Clear();
+                Time.timeScale = 0f;
 
                 Vector3 position = other.transform.position;
                 string sessionId = GameManager.Instance.sessionId;
                 string levelId = GameManager.Instance.levelId;
-                if (AnalyticsManager.instance != null) {
+                if (AnalyticsManager.instance != null)
+                {
                     AnalyticsManager.instance.AddAnalyticsEvent(
-                        sessionId: sessionId, 
-                        eventType: "Win", 
-                        levelId: levelId, 
-                        timestamp: System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), 
+                        sessionId: sessionId,
+                        eventType: "Win",
+                        levelId: levelId,
+                        timestamp: System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
                         eventSequence: -1,
                         viewBeforeEvent: "N/A",
                         reason: "N/A",
