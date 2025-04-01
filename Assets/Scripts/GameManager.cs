@@ -138,7 +138,7 @@ public class GameManager : MonoBehaviour
             directionalLight.transform.rotation = Quaternion.Euler(53, 26, -133);
         }
         // 设置材质透明度为 0.3
-        SetMaterialTransparency(TransparentGridMaterial, 0.3f);
+        SetMaterialTransparency(TransparentGridMaterial, 1.0f);
     }
 
     void checkBoxState()
@@ -185,6 +185,7 @@ public class GameManager : MonoBehaviour
     }
     void SetMaterialTransparency(Material material, float alpha)
     {
+
         if (material.HasProperty("_BaseColor")) // URP
         {
             Color color = material.GetColor("_BaseColor");

@@ -919,10 +919,10 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: abae939d-2882-4019-ae86-036e6eaf3cd4
+  cloudProjectId: 50a9b186-62de-4361-8291-18f6af14a552
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: session2
+  projectName: beta
   organizationId: jinhehu
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
