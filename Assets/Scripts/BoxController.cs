@@ -44,6 +44,7 @@ public class BoxController : MonoBehaviour
     // �������ӵ�״̬
     void UpdateBoxState()
     {
+        if (GameManager.Instance == null) return;
         if (GameManager.Instance.isTopDownView)
         {
             rb.isKinematic = true;

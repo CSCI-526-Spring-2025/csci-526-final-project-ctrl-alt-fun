@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerTutorialReporter : MonoBehaviour
+public class PlatformerTutorialReporter : MonoBehaviour
 {
     void Update()
     {
