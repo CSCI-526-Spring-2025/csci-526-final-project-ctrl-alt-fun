@@ -14,10 +14,10 @@ public class PlatformerTutorialReporter : MonoBehaviour
             TutorialManager.Instance.MarkCondition("Moved");
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            TutorialManager.Instance.MarkCondition("Switched");
-        }
+        // if (Input.GetKeyDown(KeyCode.LeftShift))
+        // {
+        //     TutorialManager.Instance.MarkCondition("Switched");
+        // }
 
         if (Input.GetKeyDown(KeyCode.X))
         {

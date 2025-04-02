@@ -9,7 +9,7 @@ public class TopDownTutorialReporter : MonoBehaviour
         //     TutorialManager.Instance.MarkCondition("Jumped");
         // }
 
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
         {
             TutorialManager.Instance.MarkCondition("Moved");
         }
