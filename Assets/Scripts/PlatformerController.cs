@@ -28,13 +28,21 @@ public class PlatformerController : MonoBehaviour
     {
         if (GameOverManager.instance != null && GameOverManager.instance.isGamePaused) return;
         // 仅允许在 X 轴上移动
-        float h = Input.GetAxis("Horizontal");
+        float h = 0f;
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            h = -1f;
+        }
+        else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            h = 1f;
+        }
         Vector3 velocity = rb.velocity;
         velocity.x = h * moveSpeed;
         rb.velocity = velocity;
 
         // 落地状态下允许跳跃
-        if (isGrounded && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)))
+        if (isGrounded && (Input.GetKeyDown(KeyCode.UpArrow)))
         {
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
             isGrounded = false;  // 跳跃后立即置为 false
@@ -46,7 +54,7 @@ public class PlatformerController : MonoBehaviour
             rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
         // 如果玩家正在上升，但松开了跳跃键，则额外加速下降（让跳跃更低）
-        else if (rb.velocity.y > 0 && !(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)))
+        else if (rb.velocity.y > 0 && !(Input.GetKey(KeyCode.UpArrow)))
         {
             rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }

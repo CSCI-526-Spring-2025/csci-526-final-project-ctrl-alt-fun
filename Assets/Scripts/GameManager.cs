@@ -17,14 +17,14 @@ public class GameManager : MonoBehaviour
     private TopDownController topDownController;
     private PlatformerController platformerController;
 
-    public bool isTopDownView {get; private set;} = false;
+    public bool isTopDownView { get; private set; } = false;
 
 
-    public Vector3 topDownPosition = new Vector3(-4, -3, -60);
-    public Vector3 topDownRotation = new Vector3(-10, 10, 0);
+    private Vector3 topDownPosition = new Vector3(0, -9f, -7.5f);
+    private Vector3 topDownRotation = new Vector3(-30, 0, 0);
 
-    public Vector3 platformerPosition = new Vector3(0, 0, -30);
-    public Vector3 platformerRotation = new Vector3(0, 0, 0);
+    private Vector3 platformerPosition = new Vector3(0, -5, -10);
+    private Vector3 platformerRotation = new Vector3(0, 0, 0);
 
     public float cameraTransitionSpeed = 5f;
 
@@ -56,12 +56,13 @@ public class GameManager : MonoBehaviour
         shiftCount = 0;
         // Debug.Log("New analytics session: " + sessionId);
         Vector3 position = isTopDownView ? topDownCharacter.transform.position : platformerCharacter.transform.position;
-        if (AnalyticsManager.instance != null) {
+        if (AnalyticsManager.instance != null)
+        {
             AnalyticsManager.instance.AddAnalyticsEvent(
-                sessionId: sessionId, 
-                eventType: "Start", 
-                levelId: levelId, 
-                timestamp: System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), 
+                sessionId: sessionId,
+                eventType: "Start",
+                levelId: levelId,
+                timestamp: System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
                 eventSequence: -1,
                 viewBeforeEvent: "N/A",
                 reason: "N/A",
@@ -72,6 +73,7 @@ public class GameManager : MonoBehaviour
 
         platformerController = platformerCharacter.GetComponent<PlatformerController>();
         topDownController = topDownCharacter.GetComponent<TopDownController>();
+        mainCamera.transform.position = new Vector3(0, -5, -10); // 固定位置
 
         SwitchToPlatformerView();
     }
@@ -86,12 +88,13 @@ public class GameManager : MonoBehaviour
             shiftCount += 1;
             Vector3 position = isTopDownView ? topDownCharacter.transform.position : platformerCharacter.transform.position;
             string viewBeforeEvent = isTopDownView ? "TopDown" : "Platformer";
-            if (AnalyticsManager.instance != null) {
+            if (AnalyticsManager.instance != null)
+            {
                 AnalyticsManager.instance.AddAnalyticsEvent(
-                    sessionId: sessionId, 
-                    eventType: "Shift", 
-                    levelId: levelId, 
-                    timestamp: System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), 
+                    sessionId: sessionId,
+                    eventType: "Shift",
+                    levelId: levelId,
+                    timestamp: System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
                     eventSequence: shiftCount,
                     viewBeforeEvent: viewBeforeEvent,
                     reason: "N/A",
@@ -117,7 +120,7 @@ public class GameManager : MonoBehaviour
     void SwitchToTopDownView()
     {
         //UpdatePortalStatus();
- 
+
         topDownController.enabled = true;
         SetCharacterCollision(topDownCharacter, true);
 
@@ -130,6 +133,7 @@ public class GameManager : MonoBehaviour
 
 
         targetCameraPosition = topDownPosition;
+        // targetCameraPosition = new Vector3(3, 3, 3);
         targetCameraRotation = Quaternion.Euler(topDownRotation);
 
         if (directionalLight != null)
@@ -145,11 +149,11 @@ public class GameManager : MonoBehaviour
     {
         if (topDownController.pickedBox == null) { return; }
         if (topDownController.TryPlaceBox()) { return; }
-        BoxController boxController= topDownController.pickedBox.GetComponent<BoxController>();
+        BoxController boxController = topDownController.pickedBox.GetComponent<BoxController>();
         if (boxController != null)
         {
             boxController.ReleaseBox();
-            topDownController.pickedBox=  null;
+            topDownController.pickedBox = null;
         }
         return;
     }
@@ -171,6 +175,7 @@ public class GameManager : MonoBehaviour
         // ���Ŀ��λ�úͽǶ�
         // targetCameraPosition = platformerCharacter.transform.position + platformerPosition;
         targetCameraPosition = platformerPosition;
+        // targetCameraPosition = new Vector3(0, 0, 0);
         // Debug.Log("targetCameraPosition set to: " + targetCameraPosition);
 
         targetCameraRotation = Quaternion.Euler(platformerRotation);
@@ -243,7 +248,7 @@ public class GameManager : MonoBehaviour
                 // Debug.Log("rb");
                 rb.isKinematic = false;
                 if (isTopDownView)
-                    
+
                 {
                     // Debug.Log("isTopDownView");
                     rb.useGravity = false;
@@ -251,7 +256,7 @@ public class GameManager : MonoBehaviour
                 else
                 {
                     // Debug.Log("!isTopDownView");
-                    rb.useGravity=true;
+                    rb.useGravity = true;
                 }
                 rb.detectCollisions = true;
             }
