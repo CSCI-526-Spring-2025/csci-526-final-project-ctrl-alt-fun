@@ -4667,6 +4667,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 690677385431436843, guid: d1a5430993c871f49b60ba233f9bb3d4,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 690677385431436843, guid: d1a5430993c871f49b60ba233f9bb3d4,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 690677385431436843, guid: d1a5430993c871f49b60ba233f9bb3d4,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -4719,6 +4729,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GridGizmo
+      objectReference: {fileID: 0}
+    - target: {fileID: 7680558761525086707, guid: d1a5430993c871f49b60ba233f9bb3d4,
+        type: 3}
+      propertyPath: gridSize
+      value: 46
+      objectReference: {fileID: 0}
+    - target: {fileID: 7680558761525086707, guid: d1a5430993c871f49b60ba233f9bb3d4,
+        type: 3}
+      propertyPath: planeSize
+      value: 46
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

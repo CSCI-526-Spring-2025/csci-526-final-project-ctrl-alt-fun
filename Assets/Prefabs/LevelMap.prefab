@@ -49,7 +49,6 @@ GameObject:
   - component: {fileID: 9159076390096330572}
   - component: {fileID: 3754398306013615842}
   - component: {fileID: 4388369102817167133}
-  - component: {fileID: 3071828129625715416}
   - component: {fileID: 1547472494351763669}
   m_Layer: 7
   m_Name: TopDown
@@ -192,18 +191,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   pickedBox: {fileID: 0}
---- !u!114 &3071828129625715416
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 538338535927797063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 883f0c322edf1c9498b2c7346927ad32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!120 &1547472494351763669
 LineRenderer:
   serializedVersion: 2
@@ -696,7 +683,6 @@ GameObject:
   - component: {fileID: 3709349631002326095}
   - component: {fileID: 450593684792974216}
   - component: {fileID: 5299342222634643998}
-  - component: {fileID: 2574192810666709916}
   m_Layer: 0
   m_Name: Platformer
   m_TagString: Player
@@ -834,18 +820,6 @@ MonoBehaviour:
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
   groundDelay: 0.2
---- !u!114 &2574192810666709916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4979992860017751319}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 883f0c322edf1c9498b2c7346927ad32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6175239972797101016
 GameObject:
   m_ObjectHideFlags: 0
