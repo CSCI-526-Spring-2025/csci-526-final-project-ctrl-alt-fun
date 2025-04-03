@@ -36,6 +36,10 @@ public class PauseMenu : MonoBehaviour
                 ResumeGame();
             else
                 PauseGame();
+            // if (GameOverManager.instance.isGamePaused)
+            //     ResumeGame();
+            // else
+            //     PauseGame();
         }
     }
 
@@ -44,6 +48,7 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
+        // GameOverManager.instance.isGamePaused = true;
     }
 
     public void ResumeGame()
@@ -51,12 +56,15 @@ public class PauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+        // GameOverManager.instance.isGamePaused = false;
     }
 
     public void ReplayLevel()
     {
         Time.timeScale = 1f;
         pauseMenuUI.SetActive(false);
+        // Clear the playersInGoal Hash Set when replay the game
+        GameWin.playersInGoal.Clear();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

@@ -32,6 +32,8 @@ public class TopDownController : MonoBehaviour
 
         void Update()
         {
+            if (GameOverManager.instance != null && GameOverManager.instance.isGamePaused) return;
+            
             HandleInput();
             DrawFaceDirection();
         }
@@ -173,27 +175,27 @@ public class TopDownController : MonoBehaviour
         foreach (Collider hit in hitColliders)
         {
             
-            if (hit.gameObject.layer == LayerMask.NameToLayer("pitWithBox"))
-            {
-                PitController pitController = hit.GetComponent<PitController>();
-                if (pitController != null)
-                {
-                    GameObject newBox = pitController.ExtractBox(); // 从坑里取出箱子
-                    if (newBox != null)
-                    {
-                        pickedBox = newBox; // 记录新生成的箱子
-                        BoxController boxController = newBox.GetComponent<BoxController>();
+            //if (hit.gameObject.layer == LayerMask.NameToLayer("pitWithBox"))
+            //{
+            //    PitController pitController = hit.GetComponent<PitController>();
+            //    if (pitController != null)
+            //    {
+            //        GameObject newBox = pitController.ExtractBox(); // 从坑里取出箱子
+            //        if (newBox != null)
+            //        {
+            //            pickedBox = newBox; // 记录新生成的箱子
+            //            BoxController boxController = newBox.GetComponent<BoxController>();
                        
-                        if (boxController != null)
-                        {
-                            Debug.Log("找到 BoxController");
-                        }
-                        // 这里可能 boxController 被覆盖或者丢失
-                        boxController.PickUpBox(transform);
-                        return; 
-                    }
-                }
-            }
+            //            if (boxController != null)
+            //            {
+            //                Debug.Log("找到 BoxController");
+            //            }
+            //            // 这里可能 boxController 被覆盖或者丢失
+            //            boxController.PickUpBox(transform);
+            //            return; 
+            //        }
+            //    }
+            //}
 
             
             if (hit.CompareTag("Pickable"))
@@ -230,6 +232,17 @@ public class TopDownController : MonoBehaviour
             {
                 if (pickedBox != null)
                 {
+                    int portalLayer = LayerMask.NameToLayer("Portal");
+
+                    if (pickedBox.transform.parent != null)
+                    {
+                        if (pickedBox.transform.parent.gameObject.layer == portalLayer)
+                        {
+                            return false;
+                        }
+
+                    }
+
                     pit.FillPit(pickedBox); // 让坑填充
                     pickedBox = null;
                     return true;
@@ -241,6 +254,8 @@ public class TopDownController : MonoBehaviour
         {
             if (pickedBox != null)
             {
+
+    
                 BoxController boxController = pickedBox.GetComponent<BoxController>();
                 if (boxController != null)
                 {

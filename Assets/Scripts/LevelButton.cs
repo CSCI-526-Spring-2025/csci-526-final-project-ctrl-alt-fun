@@ -15,6 +15,8 @@ public class LevelButton : MonoBehaviour
         button = GetComponent<Button>();
         levelText = GetComponentInChildren<TextMeshProUGUI>();
 
+        // GameOverManager.instance.isGamePaused = true;
+
         if (levelText == null)
         {
             Debug.LogError("LevelButton: TextMeshProUGUI component not found.");
