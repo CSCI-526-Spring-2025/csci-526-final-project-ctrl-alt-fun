@@ -8,13 +8,14 @@ public class KillZone : MonoBehaviour
         {
             Debug.Log("Player has collided with KillZone! Game Over.");
 
+            // Record an analytics session
             Vector3 position = collision.transform.position;
             string reason = "KillZone";
-
             if (AnalyticsManager.instance != null)
             {
                 AnalyticsManager.instance.AddLossEvent(reason, position);
             }
+            // End recording
 
             if (GameOverManager.instance != null)
             {
