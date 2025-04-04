@@ -48,11 +48,6 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // Start an analytics session
-        sessionId = Guid.NewGuid().ToString();
-        levelId = SceneManager.GetActiveScene().name;
-        shiftCount = 0;
-
         // Initialize controllers if characters exist
         if (topDownCharacter != null)
         {
@@ -67,11 +62,14 @@ public class GameManager : MonoBehaviour
         // 自动选择初始视角
         AutoSelectInitialView();
 
-        // Record start event
+        // Start an analytics session
+        sessionId = Guid.NewGuid().ToString();
+        levelId = SceneManager.GetActiveScene().name;
+        shiftCount = 0; 
+        string viewBeforeEvent = isTopDownView ? "TopDown" : "Platformer";
         Vector3 position = isTopDownView && topDownCharacter != null ?
             topDownCharacter.transform.position :
             platformerCharacter != null ? platformerCharacter.transform.position : Vector3.zero;
-
         if (AnalyticsManager.instance != null)
         {
             AnalyticsManager.instance.AddAnalyticsEvent(
@@ -80,11 +78,12 @@ public class GameManager : MonoBehaviour
                 levelId: levelId,
                 timestamp: System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
                 eventSequence: -1,
-                viewBeforeEvent: "N/A",
+                viewBeforeEvent: viewBeforeEvent,
                 reason: "N/A",
                 position: position
             );
         }
+        // Recording ends
     }
 
     private void AutoSelectInitialView()
@@ -143,6 +142,7 @@ public class GameManager : MonoBehaviour
                     position: position
                 );
             }
+            // Recording ends
 
             isTopDownView = !isTopDownView;
             if (isTopDownView)
