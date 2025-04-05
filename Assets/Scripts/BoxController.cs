@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoxController : MonoBehaviour
 {
-   
+
 
     // ��ǰ�Ƿ�Ϊ TopDown ģʽ
     private Rigidbody rb;
@@ -17,19 +17,19 @@ public class BoxController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         boxCollider = GetComponent<Collider>();
 
-      
+
     }
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         boxCollider = GetComponent<Collider>();
-        
+
         UpdateBoxState();
     }
 
     void Update()
     {
-        if (GameOverManager.instance != null && GameOverManager.instance.isGamePaused) return;
+        // if (GameOverManager.instance != null && GameOverManager.instance.isGamePaused) return;
         // ����ģʽ�л�״̬
         UpdateBoxState();
 
@@ -44,6 +44,7 @@ public class BoxController : MonoBehaviour
     // �������ӵ�״̬
     void UpdateBoxState()
     {
+        if (GameManager.Instance == null) return;
         if (GameManager.Instance.isTopDownView)
         {
             rb.isKinematic = true;
@@ -116,7 +117,7 @@ public class BoxController : MonoBehaviour
 
             // ����ĸ����򶼱�ռ�ã����ӱ���ԭ��
             Debug.Log("�޷��������ӣ����з��򶼱�ռ�ݣ�");
-            
+
             boxCollider.isTrigger = false;
         }
     }

@@ -5,11 +5,11 @@ public class PlatformerController : MonoBehaviour
 {
     public float moveSpeed = 5f;
     // 你可以调低 jumpForce 的值来降低基础跳跃高度
-    public float jumpForce = 7f;
+    public float jumpForce = 15f;
     // 下落时额外加速的倍率（值越大下落越快）
-    public float fallMultiplier = 2.5f;
+    public float fallMultiplier = 1f;
     // 当玩家未持续按住跳跃键时，额外施加的上升阶段的加速度倍率
-    public float lowJumpMultiplier = 2f;
+    public float lowJumpMultiplier = 1.5f;
 
     private Rigidbody rb;
     private bool isGrounded = false;
@@ -28,13 +28,21 @@ public class PlatformerController : MonoBehaviour
     {
         if (GameOverManager.instance != null && GameOverManager.instance.isGamePaused) return;
         // 仅允许在 X 轴上移动
-        float h = Input.GetAxis("Horizontal");
+        float h = 0f;
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            h = -1f;
+        }
+        else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            h = 1f;
+        }
         Vector3 velocity = rb.velocity;
         velocity.x = h * moveSpeed;
         rb.velocity = velocity;
 
         // 落地状态下允许跳跃
-        if (isGrounded && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)))
+        if (isGrounded && (Input.GetKeyDown(KeyCode.UpArrow)))
         {
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
             isGrounded = false;  // 跳跃后立即置为 false
@@ -46,7 +54,7 @@ public class PlatformerController : MonoBehaviour
             rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
         // 如果玩家正在上升，但松开了跳跃键，则额外加速下降（让跳跃更低）
-        else if (rb.velocity.y > 0 && !(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)))
+        else if (rb.velocity.y > 0 && !(Input.GetKey(KeyCode.UpArrow)))
         {
             rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }

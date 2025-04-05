@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: Ctrl + Alt + Fun
-  productName: Side & Top
+  productName: Side n Top
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -919,10 +919,10 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: abae939d-2882-4019-ae86-036e6eaf3cd4
+  cloudProjectId: 50a9b186-62de-4361-8291-18f6af14a552
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: session2
+  projectName: beta
   organizationId: jinhehu
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0

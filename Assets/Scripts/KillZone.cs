@@ -2,18 +2,20 @@ using UnityEngine;
 
 public class KillZone : MonoBehaviour
 {
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player"))
         {
-            Debug.Log("Player has fallen! Game Over.");
+            Debug.Log("Player has collided with KillZone! Game Over.");
 
-            // End an analytics session
-            Vector3 position = other.transform.position;
+            // Record an analytics session
+            Vector3 position = collision.transform.position;
             string reason = "KillZone";
-            if (AnalyticsManager.instance != null) {
+            if (AnalyticsManager.instance != null)
+            {
                 AnalyticsManager.instance.AddLossEvent(reason, position);
             }
+            // End recording
 
             if (GameOverManager.instance != null)
             {
