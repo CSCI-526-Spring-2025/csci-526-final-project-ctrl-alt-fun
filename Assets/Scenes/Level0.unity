@@ -625,7 +625,7 @@ Transform:
   m_GameObject: {fileID: 594473972}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -21.5, y: -15.5, z: -0.5}
+  m_LocalPosition: {x: -17.61, y: -15.5, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1164,11 +1164,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   steps:
   - id: step1
-    message: LEFT or RIGHT to move
+    message: Left arrow or Right arrow to move
     condition: Moved
     autoHideAfter: 0
   - id: step2
-    message: UP to jump
+    message: Up arrow to jump
     condition: Jumped
     autoHideAfter: 0
 --- !u!1 &1066527487
@@ -1929,8 +1929,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
-  m_fontSizeBase: 3
+  m_fontSize: 2
+  m_fontSizeBase: 2
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1965,7 +1965,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: 1.6737676, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
