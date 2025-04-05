@@ -4,7 +4,6 @@ using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-
 public class GameManager : MonoBehaviour
 {
     public Material TransparentGridMaterial; // 透明网格材质
@@ -17,14 +16,13 @@ public class GameManager : MonoBehaviour
     private TopDownController topDownController;
     private PlatformerController platformerController;
 
-    public bool isTopDownView {get; private set;} = false;
+    public bool isTopDownView { get; private set; } = false;
 
+    private Vector3 topDownPosition = new Vector3(0, -9f, -7.5f);
+    private Vector3 topDownRotation = new Vector3(-30, 0, 0);
 
-    public Vector3 topDownPosition = new Vector3(-4, -3, -60);
-    public Vector3 topDownRotation = new Vector3(-10, 10, 0);
-
-    public Vector3 platformerPosition = new Vector3(0, 0, -30);
-    public Vector3 platformerRotation = new Vector3(0, 0, 0);
+    private Vector3 platformerPosition = new Vector3(0, -5, -10);
+    private Vector3 platformerRotation = new Vector3(0, 0, 0);
 
     public float cameraTransitionSpeed = 5f;
 
@@ -50,54 +48,101 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        // Initialize controllers if characters exist
+        if (topDownCharacter != null)
+        {
+            topDownController = topDownCharacter.GetComponent<TopDownController>();
+        }
+
+        if (platformerCharacter != null)
+        {
+            platformerController = platformerCharacter.GetComponent<PlatformerController>();
+        }
+
+        // 自动选择初始视角
+        AutoSelectInitialView();
+
         // Start an analytics session
         sessionId = Guid.NewGuid().ToString();
         levelId = SceneManager.GetActiveScene().name;
-        shiftCount = 0;
-        // Debug.Log("New analytics session: " + sessionId);
-        Vector3 position = isTopDownView ? topDownCharacter.transform.position : platformerCharacter.transform.position;
-        if (AnalyticsManager.instance != null) {
+        shiftCount = 0; 
+        string viewBeforeEvent = isTopDownView ? "TopDown" : "Platformer";
+        Vector3 position = isTopDownView && topDownCharacter != null ?
+            topDownCharacter.transform.position :
+            platformerCharacter != null ? platformerCharacter.transform.position : Vector3.zero;
+        if (AnalyticsManager.instance != null)
+        {
             AnalyticsManager.instance.AddAnalyticsEvent(
-                sessionId: sessionId, 
-                eventType: "Start", 
-                levelId: levelId, 
-                timestamp: System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), 
+                sessionId: sessionId,
+                eventType: "Start",
+                levelId: levelId,
+                timestamp: System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
                 eventSequence: -1,
-                viewBeforeEvent: "N/A",
+                viewBeforeEvent: viewBeforeEvent,
                 reason: "N/A",
                 position: position
             );
         }
+        // Recording ends
+    }
 
+    private void AutoSelectInitialView()
+    {
+        bool hasTopDown = topDownCharacter != null;
+        bool hasPlatformer = platformerCharacter != null;
 
-        platformerController = platformerCharacter.GetComponent<PlatformerController>();
-        topDownController = topDownCharacter.GetComponent<TopDownController>();
-
-        SwitchToPlatformerView();
+        if (hasTopDown && hasPlatformer)
+        {
+            // 双角色模式，默认使用Platformer视角
+            SwitchToPlatformerView();
+            Debug.Log("双角色模式，默认使用Platformer视角");
+        }
+        else if (hasTopDown)
+        {
+            // 只有TopDown角色
+            isTopDownView = true;
+            SwitchToTopDownView();
+            Debug.Log("单人模式，使用TopDown视角");
+        }
+        else if (hasPlatformer)
+        {
+            // 只有Platformer角色
+            isTopDownView = false;
+            SwitchToPlatformerView();
+            Debug.Log("单人模式，使用Platformer视角");
+        }
+        else
+        {
+            Debug.LogError("场景中没有可用的玩家角色！");
+        }
     }
 
     void Update()
     {
         if (GameOverManager.instance != null && GameOverManager.instance.isGamePaused) return;
-        // ��� Shift ���л��ӽ�
-        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
+
+        // Check if we have both characters before allowing view switching
+        if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift)) &&
+            topDownCharacter != null && platformerCharacter != null)
         {
             // Record a shift event for analytics
             shiftCount += 1;
             Vector3 position = isTopDownView ? topDownCharacter.transform.position : platformerCharacter.transform.position;
             string viewBeforeEvent = isTopDownView ? "TopDown" : "Platformer";
-            if (AnalyticsManager.instance != null) {
+            if (AnalyticsManager.instance != null)
+            {
                 AnalyticsManager.instance.AddAnalyticsEvent(
-                    sessionId: sessionId, 
-                    eventType: "Shift", 
-                    levelId: levelId, 
-                    timestamp: System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(), 
+                    sessionId: sessionId,
+                    eventType: "Shift",
+                    levelId: levelId,
+                    timestamp: System.DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(),
                     eventSequence: shiftCount,
                     viewBeforeEvent: viewBeforeEvent,
                     reason: "N/A",
                     position: position
                 );
             }
+            // Recording ends
 
             isTopDownView = !isTopDownView;
             if (isTopDownView)
@@ -110,24 +155,38 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        // ������ɶ���
+        // Smooth camera transition
         SmoothCameraTransition();
     }
 
     void SwitchToTopDownView()
     {
+        if (topDownCharacter == null)
+        {
+            Debug.LogWarning("Cannot switch to TopDown view - no TopDown character assigned!");
+            return;
+        }
+
         //UpdatePortalStatus();
- 
-        topDownController.enabled = true;
+
+        if (topDownController != null)
+        {
+            topDownController.enabled = true;
+        }
         SetCharacterCollision(topDownCharacter, true);
 
-        // ���� Platformer ģʽ
-        platformerController.enabled = false;
-        SetCharacterCollision(platformerCharacter, false);
+        // Disable Platformer mode if it exists
+        if (platformerCharacter != null)
+        {
+            if (platformerController != null)
+            {
+                platformerController.enabled = false;
+            }
+            SetCharacterCollision(platformerCharacter, false);
+            SetCharacterTransparency(platformerCharacter, 0.2f);
+        }
 
         SetCharacterTransparency(topDownCharacter, 1f);
-        SetCharacterTransparency(platformerCharacter, 0.2f);
-
 
         targetCameraPosition = topDownPosition;
         targetCameraRotation = Quaternion.Euler(topDownRotation);
@@ -137,42 +196,61 @@ public class GameManager : MonoBehaviour
             directionalLight.transform.position = new Vector3(0, 18, -25);
             directionalLight.transform.rotation = Quaternion.Euler(53, 26, -133);
         }
-        // 设置材质透明度为 0.3
-        SetMaterialTransparency(TransparentGridMaterial, 0.3f);
+
+        // Set material transparency
+        if (TransparentGridMaterial != null)
+        {
+            SetMaterialTransparency(TransparentGridMaterial, 1.0f);
+        }
     }
 
     void checkBoxState()
     {
-        if (topDownController.pickedBox == null) { return; }
+        if (topDownController == null || topDownController.pickedBox == null) { return; }
         if (topDownController.TryPlaceBox()) { return; }
-        BoxController boxController= topDownController.pickedBox.GetComponent<BoxController>();
+        BoxController boxController = topDownController.pickedBox.GetComponent<BoxController>();
         if (boxController != null)
         {
             boxController.ReleaseBox();
-            topDownController.pickedBox=  null;
+            topDownController.pickedBox = null;
         }
         return;
     }
-    // �л��� Platformer �ӽ�
+
     void SwitchToPlatformerView()
     {
-        checkBoxState();
-        platformerController.enabled = true;
+        if (platformerCharacter == null)
+        {
+            Debug.LogWarning("Cannot switch to Platformer view - no Platformer character assigned!");
+            return;
+        }
+
+        if (topDownCharacter != null)
+        {
+            checkBoxState();
+        }
+
+        if (platformerController != null)
+        {
+            platformerController.enabled = true;
+        }
         SetCharacterCollision(platformerCharacter, true);
 
-        // ���� TopDown ģʽ
-        topDownController.enabled = false;
-        SetCharacterCollision(topDownCharacter, false);
+        // Disable TopDown mode if it exists
+        if (topDownCharacter != null)
+        {
+            if (topDownController != null)
+            {
+                topDownController.enabled = false;
+            }
+            SetCharacterCollision(topDownCharacter, false);
+            SetCharacterTransparency(topDownCharacter, 0.2f);
+        }
 
-        // ͸��������
-        SetCharacterTransparency(topDownCharacter, 0.2f);
         SetCharacterTransparency(platformerCharacter, 1f);
 
-        // ���Ŀ��λ�úͽǶ�
-        // targetCameraPosition = platformerCharacter.transform.position + platformerPosition;
+        // Set camera target position and rotation
         targetCameraPosition = platformerPosition;
-        // Debug.Log("targetCameraPosition set to: " + targetCameraPosition);
-
         targetCameraRotation = Quaternion.Euler(platformerRotation);
 
         if (directionalLight != null)
@@ -180,11 +258,18 @@ public class GameManager : MonoBehaviour
             directionalLight.transform.position = new Vector3(0, 0, -25);
             directionalLight.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
-        // 设置材质透明度为 1.0
-        SetMaterialTransparency(TransparentGridMaterial, 1.0f);
+
+        // Set material transparency
+        if (TransparentGridMaterial != null)
+        {
+            SetMaterialTransparency(TransparentGridMaterial, 1.0f);
+        }
     }
+
     void SetMaterialTransparency(Material material, float alpha)
     {
+        if (material == null) return;
+
         if (material.HasProperty("_BaseColor")) // URP
         {
             Color color = material.GetColor("_BaseColor");
@@ -198,9 +283,11 @@ public class GameManager : MonoBehaviour
             material.color = color;
         }
     }
-    // ���ý�ɫ͸����
+
     void SetCharacterTransparency(GameObject character, float alpha)
     {
+        if (character == null) return;
+
         Renderer[] renderers = character.GetComponentsInChildren<Renderer>();
         foreach (Renderer renderer in renderers)
         {
@@ -210,16 +297,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // ���û���ý�ɫ����ײ������Ч��
     void SetCharacterCollision(GameObject character, bool isEnabled)
     {
+        if (character == null) return;
+
         Collider[] colliders = character.GetComponentsInChildren<Collider>();
         Rigidbody rb = character.GetComponent<Rigidbody>();
 
-        // ����� TopDown ģʽ��������Ҫ��͸��ģʽ��
         if (isEnabled == false)
         {
-            // ���� Rigidbody ����������
             if (rb != null)
             {
                 rb.isKinematic = true;
@@ -227,7 +313,6 @@ public class GameManager : MonoBehaviour
                 rb.detectCollisions = false;
             }
 
-            // ����������ײ
             foreach (Collider collider in colliders)
             {
                 collider.enabled = false;
@@ -235,27 +320,20 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            // Debug.Log("SetCharacterCollision(GameObject Plat, bool true)");
-            // ���� Rigidbody ����������
             if (rb != null)
             {
-                // Debug.Log("rb");
                 rb.isKinematic = false;
                 if (isTopDownView)
-                    
                 {
-                    // Debug.Log("isTopDownView");
                     rb.useGravity = false;
                 }
                 else
                 {
-                    // Debug.Log("!isTopDownView");
-                    rb.useGravity=true;
+                    rb.useGravity = true;
                 }
                 rb.detectCollisions = true;
             }
 
-            // ����������ײ
             foreach (Collider collider in colliders)
             {
                 collider.enabled = true;
@@ -265,6 +343,8 @@ public class GameManager : MonoBehaviour
 
     void SmoothCameraTransition()
     {
+        if (mainCamera == null) return;
+
         mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, targetCameraPosition, Time.deltaTime * cameraTransitionSpeed);
         mainCamera.transform.rotation = Quaternion.Lerp(mainCamera.transform.rotation, targetCameraRotation, Time.deltaTime * cameraTransitionSpeed);
     }

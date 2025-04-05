@@ -27,7 +27,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.09999998, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c963e733b9d5cf74597b54b9bd7356b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridSize: 101
-  planeSize: 101
+  gridSize: 46
+  planeSize: 46
   gridColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}

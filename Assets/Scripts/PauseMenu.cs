@@ -5,7 +5,7 @@ public class PauseMenu : MonoBehaviour
 {
     public static PauseMenu instance;
     public GameObject pauseMenuUI;
-    // private bool isPaused = false;
+    private bool isPaused = false;
 
     void Awake()
     {
@@ -32,14 +32,14 @@ public class PauseMenu : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {
-            // if (isPaused)
-            //     ResumeGame();
-            // else
-            //     PauseGame();
-            if (GameOverManager.instance.isGamePaused)
+            if (isPaused)
                 ResumeGame();
             else
                 PauseGame();
+            // if (GameOverManager.instance.isGamePaused)
+            //     ResumeGame();
+            // else
+            //     PauseGame();
         }
     }
 
@@ -47,16 +47,16 @@ public class PauseMenu : MonoBehaviour
     {
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
-        // isPaused = true;
-        GameOverManager.instance.isGamePaused = true;
+        isPaused = true;
+        // GameOverManager.instance.isGamePaused = true;
     }
 
     public void ResumeGame()
     {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
-        // isPaused = false;
-        GameOverManager.instance.isGamePaused = false;
+        isPaused = false;
+        // GameOverManager.instance.isGamePaused = false;
     }
 
     public void ReplayLevel()
