@@ -1854,6 +1854,7 @@ GameObject:
   - component: {fileID: 1951626219}
   - component: {fileID: 1951626221}
   - component: {fileID: 1951626220}
+  - component: {fileID: 1951626222}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1979,6 +1980,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1951626218}
   m_CullTransparentMesh: 1
+--- !u!114 &1951626222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1951626218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 647994c03e9b564449520b05598185e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  doorAnimator: {fileID: 0}
+  openDistance: 5
+  openSpeed: 2
 --- !u!4 &1985494725 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7475572012273839216, guid: f2ef7960df323194a9f9bf979e4cb620,
