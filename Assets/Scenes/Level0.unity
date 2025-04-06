@@ -609,7 +609,7 @@ GameObject:
   - component: {fileID: 594473975}
   - component: {fileID: 594473974}
   - component: {fileID: 594473979}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Platformer
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -1993,8 +1993,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorAnimator: {fileID: 0}
-  openDistance: 5
+  openAngle: 90
   openSpeed: 2
+  doorWidth: 2
 --- !u!4 &1985494725 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7475572012273839216, guid: f2ef7960df323194a9f9bf979e4cb620,

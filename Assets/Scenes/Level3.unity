@@ -1338,7 +1338,7 @@ GameObject:
   - component: {fileID: 594473976}
   - component: {fileID: 594473975}
   - component: {fileID: 594473974}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Platformer
   m_TagString: Player
   m_Icon: {fileID: 0}
