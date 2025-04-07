@@ -4,12 +4,11 @@ using UnityEngine;
 public class LaserEmitter : MonoBehaviour
 {
     public float maxDistance = 20f;
-
-    [Tooltip("���ⷽ�����磺�� -> (1,0,0)���� -> (0,1,0)��")]
     public Vector3 laserDirection = Vector3.forward;
+    public LayerMask laserBlockLayers;
 
-    public LayerMask laserBlockLayers; // ����Ϊ Ground �� Box ��
     private LineRenderer lineRenderer;
+    private bool hasHitPlayer = false; // ✅ 新增：防止多次触发
 
     void Start()
     {
@@ -30,7 +29,7 @@ public class LaserEmitter : MonoBehaviour
     void FireLaser()
     {
         Vector3 offset = new Vector3(0, 0, -0.25f);
-        Vector3 origin = transform.position + offset ;
+        Vector3 origin = transform.position + offset;
         Vector3 direction = laserDirection.normalized;
 
         RaycastHit hit;
@@ -42,12 +41,25 @@ public class LaserEmitter : MonoBehaviour
 
             if (hit.collider.CompareTag("Player"))
             {
-                Debug.Log("Player hit by laser!");
-                if (GameOverManager.instance != null)
+                if (!hasHitPlayer)
                 {
-                    GameOverManager.instance.ShowGameOver(false);
+                    hasHitPlayer = true; // ✅ 标记已触发
+                    Debug.Log("Player hit by laser!");
+                    if (GameOverManager.instance != null)
+                    {
+                        GameOverManager.instance.ShowGameOver(false);
+                    }
                 }
             }
+            else
+            {
+                // 如果打到了别的对象，确保允许之后再次触发玩家命中
+                hasHitPlayer = false;
+            }
+        }
+        else
+        {
+            hasHitPlayer = false; // 没打到任何东西也要重置
         }
 
         lineRenderer.SetPosition(0, origin);
