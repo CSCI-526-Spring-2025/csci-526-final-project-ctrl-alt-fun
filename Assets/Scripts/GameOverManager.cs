@@ -37,7 +37,7 @@ public class GameOverManager : MonoBehaviour
         {
             gameOverPanel.SetActive(true);
             GameWin.playersInGoal.Clear();
-            
+
             if (isWin)
             {
                 gameOverText.text = "You Win!";
@@ -49,23 +49,24 @@ public class GameOverManager : MonoBehaviour
             {
                 gameOverText.text = "You Lose!";
                 gameOverText.color = Color.red;
-                // Time.timeScale = 0f;
+
                 if (nextLevelButton != null) nextLevelButton.SetActive(false);
                 if (replayButton != null) replayButton.SetActive(true);
-                
+
             }
             isGamePaused = true;
+            Time.timeScale = 0;
         }
     }
 
     public void ReplayLevel()
     {
         isGamePaused = false;
+        Time.timeScale = 1f;
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(false);
         }
-        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
