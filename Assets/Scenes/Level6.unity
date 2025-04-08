@@ -1136,10 +1136,10 @@ MonoBehaviour:
   moveSpeed: 4
   obstacleLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   boxLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   pickedBox: {fileID: 0}
 --- !u!54 &351615267
 Rigidbody:
@@ -1248,7 +1248,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 427255698}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Pickable
   m_TagString: Pickable
   m_Icon: {fileID: 0}
@@ -4247,10 +4247,35 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 943132815}
     m_Modifications:
+    - target: {fileID: 1407681596363129407, guid: f2ef7960df323194a9f9bf979e4cb620,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1503446283059837128, guid: f2ef7960df323194a9f9bf979e4cb620,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2373120637405162638, guid: f2ef7960df323194a9f9bf979e4cb620,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3077973708383752724, guid: f2ef7960df323194a9f9bf979e4cb620,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5423711729856738386, guid: f2ef7960df323194a9f9bf979e4cb620,
         type: 3}
       propertyPath: m_Name
       value: LevelMap
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423711729856738386, guid: f2ef7960df323194a9f9bf979e4cb620,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7475572012273839216, guid: f2ef7960df323194a9f9bf979e4cb620,
         type: 3}
@@ -4301,6 +4326,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8312374504938139119, guid: f2ef7960df323194a9f9bf979e4cb620,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8754963748744731414, guid: f2ef7960df323194a9f9bf979e4cb620,
+        type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
