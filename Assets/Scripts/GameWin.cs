@@ -34,6 +34,14 @@ public class GameWin : MonoBehaviour
         // 设置需要的玩家数量
         requiredPlayers = activePlayers.Count;
 
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.totalPlayers = requiredPlayers;
+            GameManager.Instance.UpdateGoalProgress(playersInGoal.Count);
+        }
+
+
         // 如果没有找到玩家，默认为1（单玩家模式）
         if (requiredPlayers == 0)
         {
@@ -56,6 +64,11 @@ public class GameWin : MonoBehaviour
                 Debug.Log($"玩家进入终点区域，当前进度: {playersInGoal.Count}/{requiredPlayers}");
             }
 
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.UpdateGoalProgress(playersInGoal.Count);
+            }
+
             // 检查是否满足通关条件
             CheckWinCondition(other);
         }
@@ -69,6 +82,10 @@ public class GameWin : MonoBehaviour
             if (playersInGoal.Remove(other.gameObject))
             {
                 Debug.Log($"玩家离开终点区域，当前进度: {playersInGoal.Count}/{requiredPlayers}");
+            }
+            if (GameManager.Instance != null)
+            {
+                GameManager.Instance.UpdateGoalProgress(playersInGoal.Count);
             }
         }
     }

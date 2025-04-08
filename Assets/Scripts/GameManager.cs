@@ -48,6 +48,12 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+
+        RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
+        RenderSettings.ambientLight = new Color(0.6f, 0.6f, 0.6f); // 柔和灰色环境光
+        RenderSettings.reflectionIntensity = 1f;
+        DynamicGI.UpdateEnvironment();
+
         // Initialize controllers if characters exist
         if (topDownCharacter != null)
         {
@@ -65,7 +71,7 @@ public class GameManager : MonoBehaviour
         // Start an analytics session
         sessionId = Guid.NewGuid().ToString();
         levelId = SceneManager.GetActiveScene().name;
-        shiftCount = 0; 
+        shiftCount = 0;
         string viewBeforeEvent = isTopDownView ? "TopDown" : "Platformer";
         Vector3 position = isTopDownView && topDownCharacter != null ?
             topDownCharacter.transform.position :
@@ -193,7 +199,7 @@ public class GameManager : MonoBehaviour
 
         if (directionalLight != null)
         {
-            directionalLight.transform.position = new Vector3(0, 18, -25);
+            directionalLight.transform.position = new Vector3(0, -10, -15);
             directionalLight.transform.rotation = Quaternion.Euler(53, 26, -133);
         }
 
@@ -347,5 +353,17 @@ public class GameManager : MonoBehaviour
 
         mainCamera.transform.position = Vector3.Lerp(mainCamera.transform.position, targetCameraPosition, Time.deltaTime * cameraTransitionSpeed);
         mainCamera.transform.rotation = Quaternion.Lerp(mainCamera.transform.rotation, targetCameraRotation, Time.deltaTime * cameraTransitionSpeed);
+    }
+
+
+    public TMPro.TMP_Text playerCountText;
+    public int totalPlayers = 1;
+
+    public void UpdateGoalProgress(int currentReached)
+    {
+        if (playerCountText != null)
+        {
+            playerCountText.text = $"□■: {currentReached} / {totalPlayers}";
+        }
     }
 }
