@@ -3,9 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Ground
-  - Pickable
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -13,12 +11,12 @@ TagManager:
   - 
   - Water
   - UI
-  - obstacle
-  - box
-  - Ground
-  - pitWithBox
-  - Pit
-  - Portal
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 
