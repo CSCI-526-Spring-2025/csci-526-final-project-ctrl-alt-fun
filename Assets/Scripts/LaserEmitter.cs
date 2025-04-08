@@ -45,6 +45,13 @@ public class LaserEmitter : MonoBehaviour
                 {
                     hasHitPlayer = true; // ✅ 标记已触发
                     Debug.Log("Player hit by laser!");
+
+                    Vector3 position = hit.collider.transform.position;
+                    string reason = "Laser";
+                    if (AnalyticsManager.instance != null) {
+                        AnalyticsManager.instance.AddLossEvent(reason, position);
+                    }
+
                     if (GameOverManager.instance != null)
                     {
                         GameOverManager.instance.ShowGameOver(false);
