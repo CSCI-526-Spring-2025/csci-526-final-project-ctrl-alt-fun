@@ -52,7 +52,7 @@ public class LaserEmitter : MonoBehaviour
 
                     if (AnalyticsManager.instance != null)
                     {
-                        // Debug.Log("Laser analysis upload");
+                        Debug.Log("Laser analysis upload");
                         AnalyticsManager.instance.AddLossEvent(reason, position);
                     }
 
