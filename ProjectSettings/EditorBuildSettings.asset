@@ -9,6 +9,18 @@ EditorBuildSettings:
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 49a13faed53e00d4faab08681e2ab1b3
+  - enabled: 1
+    path: Assets/Scenes/LevelSelect.unity
+    guid: 57e024c2761f7144e86d2c4c486cf30b
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: 4616203571daef746872b2428b57034c
+  - enabled: 1
+    path: Assets/Scenes/PauseMenu.unity
+    guid: c3d76e39db4d55b4b84fb71e08556b01
+  - enabled: 1
     path: Assets/Scenes/Level0.unity
     guid: efa69f0dd169fcf46bfabf7e452d757f
   - enabled: 1
@@ -29,16 +41,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level6.unity
     guid: 5ffd3cf5e433947969a237eb10971409
-  - enabled: 1
-    path: Assets/Scenes/LevelSelect.unity
-    guid: 57e024c2761f7144e86d2c4c486cf30b
-  - enabled: 1
-    path: Assets/Scenes/GameOver.unity
-    guid: 4616203571daef746872b2428b57034c
-  - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
-    guid: 49a13faed53e00d4faab08681e2ab1b3
-  - enabled: 1
-    path: Assets/Scenes/PauseMenu.unity
-    guid: c3d76e39db4d55b4b84fb71e08556b01
   m_configObjects: {}
