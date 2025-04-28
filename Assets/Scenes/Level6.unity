@@ -2983,7 +2983,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteBody: {fileID: 2077807075}
   moveSpeed: 5
-  jumpForce: 15
+  jumpForce: 7
   fallMultiplier: 1
   lowJumpMultiplier: 1
   groundDelay: 0.2

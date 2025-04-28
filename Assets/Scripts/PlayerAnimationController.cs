@@ -5,7 +5,7 @@ public class PlayerAnimationController : MonoBehaviour
 {
     public GameObject spriteBody;          // Õœ»Î SpriteBody ∂‘œÛ
     public float moveSpeed = 5f;
-    public float jumpForce = 15f;
+    public float jumpForce = 7f;
     public float fallMultiplier = 1f;
     public float lowJumpMultiplier = 1f;
     public float groundDelay = 0.2f;
