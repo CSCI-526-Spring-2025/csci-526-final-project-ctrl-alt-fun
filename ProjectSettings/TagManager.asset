@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Ground
   - Pickable
-  - player2d
   layers:
   - Default
   - TransparentFX

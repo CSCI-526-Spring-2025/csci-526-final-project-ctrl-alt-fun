@@ -8,7 +8,7 @@ public class SwitchDisappear : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // 用名字而不是 Tag
+
         if (!isSwitchActivated && other.name == "Platformer")
         {
             isSwitchActivated = true;
