@@ -2425,7 +2425,7 @@ GameObject:
   - component: {fileID: 1324473938}
   - component: {fileID: 1324473937}
   - component: {fileID: 1324473936}
-  - component: {fileID: 1324473935}
+  - component: {fileID: 1324473941}
   m_Layer: 7
   m_Name: Platformer
   m_TagString: Player
@@ -2449,24 +2449,6 @@ Transform:
   - {fileID: 399212309}
   m_Father: {fileID: 555194248}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1324473935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1324473933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18e4a9be8439baa479beffa73f15ed9b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteBody: {fileID: 399212308}
-  moveSpeed: 5
-  jumpForce: 15
-  fallMultiplier: 1
-  lowJumpMultiplier: 1
-  groundDelay: 0.2
 --- !u!114 &1324473936
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2582,6 +2564,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1324473933}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1324473941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1324473933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18e4a9be8439baa479beffa73f15ed9b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteBody: {fileID: 399212308}
+  moveSpeed: 5
+  jumpForce: 7
+  groundDelay: 0.2
 --- !u!4 &1422702006 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 296606462887662778, guid: d8fefa6521a974340b563911de66cad9,

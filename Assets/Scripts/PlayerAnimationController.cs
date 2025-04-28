@@ -1,13 +1,11 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
 public class PlayerAnimationController : MonoBehaviour
 {
     public GameObject spriteBody;          // 拖入 SpriteBody 对象
     public float moveSpeed = 5f;
-    public float jumpForce = 15f;
-    public float fallMultiplier = 1f;
-    public float lowJumpMultiplier = 1f;
+    public float jumpForce = 7f;
     public float groundDelay = 0.2f;
 
     private Animator animator;
@@ -29,7 +27,7 @@ public class PlayerAnimationController : MonoBehaviour
         else if (Input.GetKey(KeyCode.RightArrow))
             moveInput = 1f;
 
-        // 移动
+        // 移动（只控制x方向速度，不改y/z）
         Vector3 velocity = rb.velocity;
         velocity.x = moveInput * moveSpeed;
         rb.velocity = velocity;
@@ -42,36 +40,24 @@ public class PlayerAnimationController : MonoBehaviour
             spriteBody.transform.localScale = scale;
         }
 
-        // 设置动画参数
+        // 设置动画参数（仅用于切换动画）
         animator.SetBool("isWalking", moveInput != 0);
         animator.SetBool("isJumping", !isGrounded);
 
-        // 跳跃
+        // 跳跃（只在地面且按键时，施加竖直向上跳跃力）
         if (isGrounded && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space)))
         {
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
             isGrounded = false;
         }
-
-        // 下落加速
-        if (rb.velocity.y < 0)
-        {
-            rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-        }
-        // 轻跳
-        else if (rb.velocity.y > 0 && !(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.Space)))
-        {
-            rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
-        }
     }
 
-    // 利用碰撞检测是否着地
     void OnCollisionStay(Collision collision)
     {
         bool grounded = false;
         foreach (ContactPoint contact in collision.contacts)
         {
-            if (Vector3.Dot(contact.normal, transform.up) > 0.5f)
+            if (Vector3.Dot(contact.normal, Vector3.up) > 0.5f)
             {
                 grounded = true;
                 break;
@@ -88,6 +74,7 @@ public class PlayerAnimationController : MonoBehaviour
     {
         StartCoroutine(DelayedGroundCheck());
     }
+
 
     private IEnumerator DelayedGroundCheck()
     {
