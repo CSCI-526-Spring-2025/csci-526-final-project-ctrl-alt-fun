@@ -4,24 +4,16 @@ public class PlayerTutorialReporter : MonoBehaviour
 {
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
         {
-            TutorialManager.Instance.MarkCondition("Jumped");
+            TutorialManager.Instance.MarkCondition("Shifted");
         }
 
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            TutorialManager.Instance.MarkCondition("Moved");
-        }
-
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            TutorialManager.Instance.MarkCondition("Switched");
-        }
-
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            TutorialManager.Instance.MarkCondition("Picked");
+            TutorialManager.Instance.MarkCondition("Paused");
         }
     }
 }

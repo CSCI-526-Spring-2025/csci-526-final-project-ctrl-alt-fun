@@ -920,6 +920,7 @@ GameObject:
   - component: {fileID: 899103058}
   - component: {fileID: 899103057}
   - component: {fileID: 899103056}
+  - component: {fileID: 899103062}
   m_Layer: 7
   m_Name: Platformer
   m_TagString: Player
@@ -1076,6 +1077,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899103054}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &899103062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899103054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceee462476bf6424fa4a7e6c74f37c25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &943132814
 GameObject:
   m_ObjectHideFlags: 0
