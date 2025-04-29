@@ -4,7 +4,7 @@ public class TopDownTutorialReporter : MonoBehaviour
 {
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.DownArrow))
         {
             TutorialManager.Instance.MarkCondition("Moved");
         }
