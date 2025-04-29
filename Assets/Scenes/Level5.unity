@@ -678,7 +678,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 901895239}
-  - {fileID: 4001487702098500058}
+  - {fileID: 5513713491125379292}
   m_Father: {fileID: 943132815}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &434205667
@@ -4310,7 +4310,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'try carry the new protal into flag area
+  m_text: 'try carry the wood protal into flag area
 
 '
   m_isRightToLeft: 0
@@ -4494,7 +4494,7 @@ GameObject:
   - component: {fileID: 1952206784204554453}
   m_Layer: 7
   m_Name: portal2
-  m_TagString: Pickable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4610,7 +4610,7 @@ Transform:
   m_GameObject: {fileID: 985984347001120519}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1, y: 4.5, z: -0.5}
+  m_LocalPosition: {x: -9, y: 15, z: -0.5}
   m_LocalScale: {x: 0.6, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4651,7 +4651,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5513713491125379292}
+  - {fileID: 4001487702098500058}
   m_Father: {fileID: 943132815}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2635892544693285442
@@ -4695,12 +4695,12 @@ Transform:
   m_GameObject: {fileID: 7618878130671893090}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
-  m_LocalPosition: {x: 5, y: 0, z: 0.5}
+  m_LocalPosition: {x: 19, y: 4, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2176243920669108351}
-  m_Father: {fileID: 427255698}
+  m_Father: {fileID: 2561322521489531576}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!23 &4233972899545604677
 MeshRenderer:
@@ -4801,12 +4801,12 @@ Transform:
   m_GameObject: {fileID: 2635892544693285442}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -3, y: -7, z: -0.5}
+  m_LocalPosition: {x: -17, y: -11, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9138128323128213816}
-  m_Father: {fileID: 2561322521489531576}
+  m_Father: {fileID: 427255698}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!33 &5564302494493625085
 MeshFilter:
@@ -5008,7 +5008,7 @@ Transform:
   m_GameObject: {fileID: 8214720348960579769}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -4, y: -31, z: -0.5}
+  m_LocalPosition: {x: 6.5, y: -20, z: -0.5}
   m_LocalScale: {x: 0.6, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
