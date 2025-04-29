@@ -3,9 +3,9 @@ using System.Collections;
 
 public class PlayerAnimationController : MonoBehaviour
 {
-    public GameObject spriteBody;          // ÍÏÈë SpriteBody ¶ÔÏó
+    public GameObject spriteBody;          // ï¿½ï¿½ï¿½ï¿½ SpriteBody ï¿½ï¿½ï¿½ï¿½
     public float moveSpeed = 5f;
-    public float jumpForce = 15f;
+    public float jumpForce = 7f;
     public float fallMultiplier = 1f;
     public float lowJumpMultiplier = 1f;
     public float groundDelay = 0.2f;
@@ -29,12 +29,12 @@ public class PlayerAnimationController : MonoBehaviour
         else if (Input.GetKey(KeyCode.RightArrow))
             moveInput = 1f;
 
-        // ÒÆ¶¯
+        // ï¿½Æ¶ï¿½
         Vector3 velocity = rb.velocity;
         velocity.x = moveInput * moveSpeed;
         rb.velocity = velocity;
 
-        // ×óÓÒ·­×ª Sprite
+        // ï¿½ï¿½ï¿½Ò·ï¿½×ª Sprite
         if (moveInput != 0)
         {
             Vector3 scale = spriteBody.transform.localScale;
@@ -42,30 +42,30 @@ public class PlayerAnimationController : MonoBehaviour
             spriteBody.transform.localScale = scale;
         }
 
-        // ÉèÖÃ¶¯»­²ÎÊý
+        // ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         animator.SetBool("isWalking", moveInput != 0);
         animator.SetBool("isJumping", !isGrounded);
 
-        // ÌøÔ¾
-        if (isGrounded && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space)))
+        // ï¿½ï¿½Ô¾
+        if (isGrounded && (Input.GetKeyDown(KeyCode.UpArrow)))
         {
             rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
             isGrounded = false;
         }
 
-        // ÏÂÂä¼ÓËÙ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (rb.velocity.y < 0)
         {
             rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
         }
-        // ÇáÌø
+        // ï¿½ï¿½ï¿½ï¿½
         else if (rb.velocity.y > 0 && !(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.Space)))
         {
             rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
     }
 
-    // ÀûÓÃÅö×²¼ì²âÊÇ·ñ×ÅµØ
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Åµï¿½
     void OnCollisionStay(Collision collision)
     {
         bool grounded = false;
