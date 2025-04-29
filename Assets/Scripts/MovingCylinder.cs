@@ -31,7 +31,7 @@ public class MovingCylinder : MonoBehaviour
     // 如果使用 Trigger 方式，则确保 Cylinder 的 Collider 勾选了 Is Trigger
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(targetTag))
+        if (other.CompareTag(targetTag)|| other.CompareTag("Player3d"))
         {
             // End an analytics session
             Vector3 position = other.transform.position;

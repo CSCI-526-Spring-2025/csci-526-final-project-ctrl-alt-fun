@@ -39,7 +39,7 @@ public class LaserEmitter : MonoBehaviour
         {
             endPosition = hit.point;
 
-            if (hit.collider.CompareTag("Player"))
+            if (hit.collider.CompareTag("Player")|| hit.collider.CompareTag("Player3d"))
             {
                 if (!hasHitPlayer)
                 {
