@@ -4310,7 +4310,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'try carry the wood protal into flag area
+  m_text: 'try carry the wood portal into flag area
 
 '
   m_isRightToLeft: 0
