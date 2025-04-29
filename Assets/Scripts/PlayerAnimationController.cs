@@ -29,12 +29,32 @@ public class PlayerAnimationController : MonoBehaviour
         else if (Input.GetKey(KeyCode.RightArrow))
             moveInput = 1f;
 
-        // �ƶ�
-        Vector3 velocity = rb.velocity;
-        velocity.x = moveInput * moveSpeed;
-        rb.velocity = velocity;
+        if (!rb.isKinematic)
+        {
+            // 移动
+            Vector3 velocity = rb.velocity;
+            velocity.x = moveInput * moveSpeed;
+            rb.velocity = velocity;
 
-        // ���ҷ�ת Sprite
+            // 跳跃
+            if (isGrounded && Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+                isGrounded = false;
+            }
+
+            // 快速下落
+            if (rb.velocity.y < 0)
+            {
+                rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+            }
+            else if (rb.velocity.y > 0 && !Input.GetKey(KeyCode.UpArrow))
+            {
+                rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+            }
+        }
+
+        // 翻转 Sprite
         if (moveInput != 0)
         {
             Vector3 scale = spriteBody.transform.localScale;
@@ -42,28 +62,11 @@ public class PlayerAnimationController : MonoBehaviour
             spriteBody.transform.localScale = scale;
         }
 
-        // ���ö�������
+        // 设置动画参数
         animator.SetBool("isWalking", moveInput != 0);
         animator.SetBool("isJumping", !isGrounded);
-
-        // ��Ծ
-        if (isGrounded && (Input.GetKeyDown(KeyCode.UpArrow)))
-        {
-            rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
-            isGrounded = false;
-        }
-
-        // �������
-        if (rb.velocity.y < 0)
-        {
-            rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-        }
-        // ����
-        else if (rb.velocity.y > 0 && !(Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.Space)))
-        {
-            rb.velocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
-        }
     }
+
 
     // ������ײ����Ƿ��ŵ�
     void OnCollisionStay(Collision collision)

@@ -18,12 +18,11 @@ public class GameWin : MonoBehaviour
     // 自动检测场景中的玩家数量
     private void DetectPlayerCount()
     {
-        // 查找所有带有"Player"标签的对象
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-
-        // 过滤掉未激活的玩家对象
         List<GameObject> activePlayers = new List<GameObject>();
-        foreach (var player in players)
+
+        // 查找 "Player" 标签的角色
+        GameObject[] topDownPlayers = GameObject.FindGameObjectsWithTag("Player");
+        foreach (var player in topDownPlayers)
         {
             if (player.activeInHierarchy)
             {
@@ -31,7 +30,16 @@ public class GameWin : MonoBehaviour
             }
         }
 
-        // 设置需要的玩家数量
+        // 查找 "Player3D" 标签的角色
+        GameObject[] platformerPlayers = GameObject.FindGameObjectsWithTag("Player3d");
+        foreach (var player in platformerPlayers)
+        {
+            if (player.activeInHierarchy)
+            {
+                activePlayers.Add(player);
+            }
+        }
+
         requiredPlayers = activePlayers.Count;
 
 
@@ -56,7 +64,7 @@ public class GameWin : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Player3d"))
         {
             // 添加进入终点区域的玩家
             if (playersInGoal.Add(other.gameObject))
@@ -76,7 +84,7 @@ public class GameWin : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Player3d"))
         {
             // 玩家离开终点区域后，从集合中移除
             if (playersInGoal.Remove(other.gameObject))
