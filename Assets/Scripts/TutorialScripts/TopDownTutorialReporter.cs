@@ -9,6 +9,11 @@ public class TopDownTutorialReporter : MonoBehaviour
             TutorialManager.Instance.MarkCondition("Moved");
         }
 
+        if (Input.GetKey(KeyCode.Space) && (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.UpArrow)))
+        {
+            TutorialManager.Instance.MarkCondition("Changed");
+        }
+
 
         if (Input.GetKeyDown(KeyCode.X))
         {
