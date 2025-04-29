@@ -3,15 +3,16 @@ using UnityEngine;
 public class SwitchDisappear : MonoBehaviour
 {
     public GameObject door;
-        
+
     private bool isSwitchActivated = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!isSwitchActivated && other.CompareTag("Player"))
+
+        if (!isSwitchActivated && other.name == "Platformer")
         {
             isSwitchActivated = true;
-            Debug.Log("Switch activated!");
+            Debug.Log("Switch activated by " + other.name);
 
             DoorController doorCtrl = door.GetComponent<DoorController>();
             if (doorCtrl != null)

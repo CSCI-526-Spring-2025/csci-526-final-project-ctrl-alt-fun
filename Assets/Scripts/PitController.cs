@@ -5,7 +5,7 @@ public class PitController : MonoBehaviour
 {
     public bool isFilled = false;  // �Ƿ����
     public Material defaultMaterial; // �ӵ�ԭʼ����
-    public GameObject boxPrefab; 
+    public GameObject boxPrefab;
     private GameObject filledBox = null; // ��¼��������
     public GameManager gameManager;
     public Material pinkMaterial;
@@ -19,7 +19,7 @@ public class PitController : MonoBehaviour
 
     void Update()
     {
-     
+
     }
 
     void OnTriggerEnter(Collider other)
@@ -32,7 +32,8 @@ public class PitController : MonoBehaviour
             // End an analytics session
             Vector3 position = other.transform.position;
             string reason = "Pit";
-            if (AnalyticsManager.instance != null) {
+            if (AnalyticsManager.instance != null)
+            {
                 AnalyticsManager.instance.AddLossEvent(reason, position);
             }
             Debug.Log("��ҵ���ӣ���Ϸ����");
@@ -46,20 +47,20 @@ public class PitController : MonoBehaviour
         }
     }
 
-  public  void FillPit(GameObject box)
+    public void FillPit(GameObject box)
     {
         isFilled = true;
         filledBox = box;
 
         // �����ӵ�λ�ö��뵽��
-        box.transform.position = transform.position+Zoffset;
+        box.transform.position = transform.position + Zoffset;
         box.GetComponent<BoxController>().enabled = false; // �������ӽű�����ֹ���ٴ�ʰȡ
-        
+
         Debug.Log("�ӱ����");
 
         // ������Ӷ���
         StartCoroutine(SmoothFillPit(box));
-        
+
         // �ÿӱ����ͨ����
         Renderer pitRenderer = GetComponent<Renderer>();
         if (pitRenderer != null && pinkMaterial != null)
