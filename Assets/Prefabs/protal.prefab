@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4233972898352740680}
   - component: {fileID: 6701543161646647644}
   - component: {fileID: 7364126894670344083}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: realPortal
   m_TagString: Pickable
   m_Icon: {fileID: 0}
@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 2332680239912560150}
   - component: {fileID: 4567592551683519489}
   - component: {fileID: 1952206785140431832}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: portal2
   m_TagString: Pickable
   m_Icon: {fileID: 0}
@@ -187,7 +187,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b8d1ae58501232741986b9610e26a9a2, type: 2}
+  - {fileID: 2100000, guid: 867b547159f5ad94eaa7a2ef79dd49d7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -379,7 +379,7 @@ GameObject:
   - component: {fileID: 588000838869736750}
   - component: {fileID: 5133196222029444418}
   - component: {fileID: 3416889883347557584}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: realPortal
   m_TagString: Pickable
   m_Icon: {fileID: 0}
@@ -502,7 +502,7 @@ GameObject:
   - component: {fileID: 1338255110223356239}
   - component: {fileID: 85652426500384134}
   - component: {fileID: 1646142084400046732}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: portal1
   m_TagString: Pickable
   m_Icon: {fileID: 0}
@@ -553,7 +553,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b8d1ae58501232741986b9610e26a9a2, type: 2}
+  - {fileID: 2100000, guid: 867b547159f5ad94eaa7a2ef79dd49d7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

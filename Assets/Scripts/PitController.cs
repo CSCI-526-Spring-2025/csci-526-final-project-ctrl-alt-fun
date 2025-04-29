@@ -27,7 +27,7 @@ public class PitController : MonoBehaviour
         if (isFilled) return; // ���Ѿ�����䣬��ִ���κβ���
         if (isOP) return;
         // ��ҵ����ӣ�������Ϸ����
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player3d"))
         {
             // End an analytics session
             Vector3 position = other.transform.position;

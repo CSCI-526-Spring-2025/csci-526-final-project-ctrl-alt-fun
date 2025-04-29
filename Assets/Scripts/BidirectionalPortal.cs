@@ -49,7 +49,7 @@ public class BidirectionalPortal : MonoBehaviour
         if (linkedPortal == null || isTeleporting) return;
         if (GameManager.Instance != null && GameManager.Instance.isTopDownView) return; 
         // 3. 确保玩家接触的是 "正确的方向"（浅蓝色长表面）
-        //if (!IsCorrectSurface(other)) return;
+        if (!IsCorrectSurface(other)) return;
 
         //Rigidbody rb = other.GetComponent<Rigidbody>();
         
