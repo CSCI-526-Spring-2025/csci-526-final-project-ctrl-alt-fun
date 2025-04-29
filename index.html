@@ -6,83 +6,129 @@
     <title>Our Game - Play Now</title>
     <style>
       body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        background-color: #f4f4f4;
+        font-family: "Poppins", Arial, sans-serif;
+        background: linear-gradient(to right, #e0eafc, #cfdef3);
         margin: 0;
-        padding: 20px;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        text-align: center;
       }
+
       h1 {
-        color: #333;
+        color: #222;
+        margin-top: 20px;
+        font-size: 2.5em;
       }
+
+      p {
+        color: #555;
+        margin-bottom: 30px;
+        font-size: 1.2em;
+      }
+
       .game-container {
-        margin: 20px auto;
-        max-width: 800px;
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background: #fff;
+        padding: 40px;
+        margin: 20px;
+        width: 90%;
+        max-width: 900px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       }
-      iframe {
-        width: 100%;
-        height: 500px;
-        border: none;
+
+      .game-section {
+        margin-bottom: 40px;
       }
+
+      h2 {
+        color: #333;
+        margin-bottom: 15px;
+        font-size: 1.8em;
+      }
+
       .play-button {
         display: inline-block;
-        padding: 10px 20px;
-        margin-top: 15px;
-        font-size: 18px;
+        padding: 12px 30px;
+        margin-top: 10px;
+        font-size: 16px;
+        font-weight: 600;
         color: white;
-        background-color: #007bff;
+        background: linear-gradient(to right, #00c6ff, #0072ff);
         text-decoration: none;
-        border-radius: 5px;
+        border-radius: 50px;
+        transition: background 0.3s ease, transform 0.2s ease, color 0.3s ease;
       }
+
       .play-button:hover {
-        background-color: #0056b3;
+        background: linear-gradient(to right, #0072ff, #00c6ff);
+        transform: scale(1.05);
+        color: #f0f0f0;
       }
     </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
   </head>
+
   <body>
     <h1>Welcome to Side & Top</h1>
     <p>Enjoy our amazing game right in your browser!</p>
 
     <div class="game-container">
-      <h2>Beta Prototype</h2>
-      <br />
-      <a
-        href="WebGL-Builds/Beta-Prototype/index.html"
-        class="play-button"
-        target="_blank"
-        >Play Now</a
-      >
-      <br />
-      <h2>Beta Progress</h2>
-      <br />
-      <a
-        href="WebGL-Builds/Beta-Progress/index.html"
-        class="play-button"
-        target="_blank"
-        >Play Now</a
-      >
-      <br />
-      <h2>Alpha Prototype</h2>
-      <br />
-      <a
-        href="WebGL-Builds/Alpha-Prototype/index.html"
-        class="play-button"
-        target="_blank"
-        >Play Now</a
-      >
-      <br />
-      <h2>Alpha Progress</h2>
-      <br />
-      <a
-        href="WebGL-Builds/Alpha-Progress/index.html"
-        class="play-button"
-        target="_blank"
-        >Play Now</a
-      >
+      <div class="game-section">
+        <h2>Gold Product</h2>
+        <a
+          href="WebGL-Builds/Gold-Product/index.html"
+          class="play-button"
+          target="_blank"
+          >Play Now</a
+        >
+      </div>
+
+      <div class="game-section">
+        <h2>Beta Prototype</h2>
+        <a
+          href="WebGL-Builds/Beta-Prototype/index.html"
+          class="play-button"
+          target="_blank"
+          >Play Now</a
+        >
+      </div>
+
+      <div class="game-section">
+        <h2>Beta Progress</h2>
+        <a
+          href="WebGL-Builds/Beta-Progress/index.html"
+          class="play-button"
+          target="_blank"
+          >Play Now</a
+        >
+      </div>
+
+      <div class="game-section">
+        <h2>Alpha Prototype</h2>
+        <a
+          href="WebGL-Builds/Alpha-Prototype/index.html"
+          class="play-button"
+          target="_blank"
+          >Play Now</a
+        >
+      </div>
+
+      <div class="game-section">
+        <h2>Alpha Progress</h2>
+        <a
+          href="WebGL-Builds/Alpha-Progress/index.html"
+          class="play-button"
+          target="_blank"
+          >Play Now</a
+        >
+      </div>
     </div>
   </body>
 </html>
