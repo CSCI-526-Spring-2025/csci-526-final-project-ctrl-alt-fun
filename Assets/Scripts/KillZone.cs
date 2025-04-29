@@ -4,7 +4,7 @@ public class KillZone : MonoBehaviour
 {
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player") || collision.collider.CompareTag("Player3d"))
         {
             Debug.Log("Player has collided with KillZone! Game Over.");
 
