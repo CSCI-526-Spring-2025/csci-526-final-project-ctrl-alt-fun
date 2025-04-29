@@ -484,7 +484,7 @@ GameObject:
   - component: {fileID: 209025923}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Player3d
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3893,7 +3893,7 @@ GameObject:
   - component: {fileID: 1868311475}
   m_Layer: 7
   m_Name: TopDown
-  m_TagString: Player
+  m_TagString: Player3d
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
